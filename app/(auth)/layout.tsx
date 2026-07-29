@@ -28,7 +28,7 @@ export default function AuthLayout({
       <Box
         sx={{
           display: "flex",
-          flexDirection: { xs: "column", md: "row" },
+          flexDirection: { xs: "column", lg: "row" },
           gap: { md: 13 },
         }}
       >
@@ -65,7 +65,7 @@ export default function AuthLayout({
               zIndex: -1,
               width: { xs: 95, sm: 179 },
               height: { xs: 93, sm: 175 },
-              right: { xs: 12, sm: 17, md: 20 },
+              right: { xs: 12, sm: 17, lg: 13 },
               top: { xs: -40, sm: -75 },
             }}
           >

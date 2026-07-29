@@ -10,6 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LogoImage from "@/components/header/logo-image";
 import { usePathname } from "next/navigation";
 import { pages } from "@/components/header/sidebar";
+import LogoutButton from "@/components/header/logout-button";
 
 interface Props {
   onToggleDrawer: () => void;
@@ -68,6 +69,7 @@ function ResponsiveAppBar({ onToggleDrawer }: Props) {
                 ),
             )}
           </Box>
+          <LogoutButton />
         </Toolbar>
       </>
     </AppBar>
