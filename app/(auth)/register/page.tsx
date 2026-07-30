@@ -1,49 +1,43 @@
 "use client";
 
 import React, { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema, LoginValues } from "@/lib/schemas/authSchema";
 import { Button, InputAdornment, Stack, TextField } from "@mui/material";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { signIn } from "@/lib/api";
-import { enqueueSnackbar } from "notistack";
-import { useRouter } from "next/navigation";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Controller, useForm } from "react-hook-form";
 import IconButton from "@mui/material/IconButton";
-import axios from "axios";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema, RegisterValues } from "@/lib/schemas/authSchema";
+import { useRouter } from "next/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { signUp } from "@/lib/api";
+import { enqueueSnackbar } from "notistack";
 
 function Page() {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const [showPassword, setShowPassword] = useState(false);
-  const { control, handleSubmit } = useForm<LoginValues>({
-    resolver: zodResolver(loginSchema),
+  const { control, handleSubmit } = useForm<RegisterValues>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
+      phone: "",
     },
   });
-  const loginMutation = useMutation({
-    mutationFn: signIn,
+  const [showPassword, setShowPassword] = useState(false);
+
+  const registerMutation = useMutation({
+    mutationFn: signUp,
     onSuccess: (data) => {
       queryClient.setQueryData(["user"], data);
-      enqueueSnackbar("Login successful", { variant: "success" });
-      router.push("/dashboard");
-    },
-    onError: (error) => {
-      if (axios.isAxiosError(error)) {
-        const status = error.response?.status;
-        if (status === 401)
-          enqueueSnackbar("Invalid credentials", { variant: "error" });
-        if (status === 500)
-          enqueueSnackbar("Something went wrong", { variant: "error" });
-      }
+      console.log(data);
+      enqueueSnackbar("Successfully registered", { variant: "success" });
+      router.push("/");
     },
   });
 
   return (
-    <form onSubmit={handleSubmit((data) => loginMutation.mutate(data))}>
+    <form onSubmit={handleSubmit((data) => registerMutation.mutate(data))}>
       <Stack spacing={2}>
         <Controller
           name="email"

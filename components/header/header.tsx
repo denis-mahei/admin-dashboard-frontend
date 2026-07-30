@@ -20,58 +20,60 @@ function ResponsiveAppBar({ onToggleDrawer }: Props) {
   const pathname = usePathname();
   return (
     <AppBar position="static">
-      <>
-        <Toolbar
-          variant="regular"
+      <Toolbar
+        variant="regular"
+        sx={{
+          alignItems: "center",
+          gap: { xs: "20px" },
+          paddingX: { xs: "20px", sm: "32px", md: "20px" },
+          paddingY: { xs: "18px", md: "15px" },
+        }}
+      >
+        <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <IconButton onClick={onToggleDrawer} sx={{ padding: 0 }}>
+            <MenuIcon sx={{ fontSize: "32px", color: "#1D1E21" }} />
+          </IconButton>
+        </Box>
+
+        <LogoImage />
+
+        <Box
           sx={{
-            alignItems: "center",
-            gap: { xs: "20px" },
-            paddingX: { xs: "20px", sm: "32px", md: "20px" },
-            paddingY: { xs: "18px", md: "15px" },
+            flexGrow: 1,
+            display: "flex",
+            flexDirection: "column",
+            gap: "4px",
+            marginLeft: { sm: "12px", md: "40px" },
           }}
         >
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton onClick={onToggleDrawer} sx={{ padding: 0 }}>
-              <MenuIcon sx={{ fontSize: "32px", color: "#1D1E21" }} />
-            </IconButton>
-          </Box>
-
-          <LogoImage />
-          <Box
+          <Typography
+            variant="h1"
+            component="h1"
             sx={{
-              flexGrow: 1,
-              display: "flex",
-              flexDirection: "column",
-              gap: "4px",
+              fontSize: { xs: "20px", md: "24px" },
+              color: "primary.main",
+              fontWeight: 600,
             }}
           >
-            <Typography
-              variant="h1"
-              component="h1"
-              sx={{
-                fontSize: { xs: "20px", md: "24px" },
-                color: "primary.main",
-                fontWeight: 600,
-              }}
-            >
-              Medicine Store
-            </Typography>
-            {pages.map(
-              (page) =>
-                pathname === page.path && (
-                  <Typography
-                    key={page.name}
-                    component="p"
-                    sx={{ fontSize: "12px", color: "rgba(29, 30, 33, 0.4)" }}
-                  >
-                    {page.name} | vendor@gmail.com
-                  </Typography>
-                ),
-            )}
-          </Box>
+            Medicine Store
+          </Typography>
+          {pages.map(
+            (page) =>
+              pathname === page.path && (
+                <Typography
+                  key={page.name}
+                  component="p"
+                  sx={{ fontSize: "12px", color: "rgba(29, 30, 33, 0.4)" }}
+                >
+                  {page.name} | vendor@gmail.com
+                </Typography>
+              ),
+          )}
+        </Box>
+        <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <LogoutButton />
-        </Toolbar>
-      </>
+        </Box>
+      </Toolbar>
     </AppBar>
   );
 }

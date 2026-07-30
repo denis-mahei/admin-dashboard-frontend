@@ -5,7 +5,7 @@ const api = axios.create({
   withCredentials: true,
 });
 
-export const register = async (credentials: {
+export const signUp = async (credentials: {
   email: string;
   password: string;
   name: string;
@@ -15,7 +15,7 @@ export const register = async (credentials: {
   return data;
 };
 
-export const login = async (credentials: {
+export const signIn = async (credentials: {
   email: string;
   password: string;
 }) => {
