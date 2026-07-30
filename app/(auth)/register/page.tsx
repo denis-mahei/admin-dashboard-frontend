@@ -40,11 +40,51 @@ function Page() {
     <form onSubmit={handleSubmit((data) => registerMutation.mutate(data))}>
       <Stack spacing={2}>
         <Controller
+          name="name"
+          render={({ field, fieldState }) => (
+            <TextField
+              {...field}
+              label="Name"
+              error={!!fieldState.error}
+              helperText={fieldState.error?.message}
+              sx={{
+                "& .MuiInputLabel-root": {
+                  top: -4,
+                },
+                "& .MuiInputLabel-shrink": {
+                  top: 0,
+                },
+              }}
+            />
+          )}
+          control={control}
+        />
+        <Controller
           name="email"
           render={({ field, fieldState }) => (
             <TextField
               {...field}
               label="Email"
+              error={!!fieldState.error}
+              helperText={fieldState.error?.message}
+              sx={{
+                "& .MuiInputLabel-root": {
+                  top: -4,
+                },
+                "& .MuiInputLabel-shrink": {
+                  top: 0,
+                },
+              }}
+            />
+          )}
+          control={control}
+        />
+        <Controller
+          name="phone"
+          render={({ field, fieldState }) => (
+            <TextField
+              {...field}
+              label="Phone"
               error={!!fieldState.error}
               helperText={fieldState.error?.message}
               sx={{

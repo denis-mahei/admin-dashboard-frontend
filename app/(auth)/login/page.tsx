@@ -29,7 +29,8 @@ function Page() {
     onSuccess: (data) => {
       queryClient.setQueryData(["user"], data);
       enqueueSnackbar("Login successful", { variant: "success" });
-      router.push("/dashboard");
+      if (data.role === "CUSTOMER") router.push("/");
+      else router.push("/dashboard");
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {
