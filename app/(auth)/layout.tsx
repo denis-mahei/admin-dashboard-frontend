@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import { Container } from "@mui/material";
-import LogoImage from "@/components/header/logo-image";
+import LogoImage from "@/components/admin/logo-image";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 
@@ -70,7 +70,7 @@ export default function AuthLayout({
             }}
           >
             <Image
-              src="/assets/tab.png"
+              src="/assets/images/tab.webp"
               alt="Pharmacy"
               fill
               style={{ objectFit: "contain" }}

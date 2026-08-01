@@ -12,6 +12,8 @@ import { useRouter } from "next/navigation";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import axios from "axios";
+import Box from "@mui/material/Box";
+import Link from "@/components/link";
 
 function Page() {
   const router = useRouter();
@@ -51,17 +53,9 @@ function Page() {
           render={({ field, fieldState }) => (
             <TextField
               {...field}
-              label="Email"
+              label="Email address"
               error={!!fieldState.error}
               helperText={fieldState.error?.message}
-              sx={{
-                "& .MuiInputLabel-root": {
-                  top: -4,
-                },
-                "& .MuiInputLabel-shrink": {
-                  top: 0,
-                },
-              }}
             />
           )}
           control={control}
@@ -76,14 +70,6 @@ function Page() {
               type={showPassword ? "text" : "password"}
               error={!!fieldState.error}
               helperText={fieldState.error?.message}
-              sx={{
-                "& .MuiInputLabel-root": {
-                  top: -4,
-                },
-                "& .MuiInputLabel-shrink": {
-                  top: 0,
-                },
-              }}
               slotProps={{
                 input: {
                   endAdornment: (
@@ -104,17 +90,37 @@ function Page() {
             />
           )}
         />
-        <Button
-          type="submit"
-          variant="contained"
-          sx={{
-            marginTop: "40px !important",
-            backgroundColor: "custom.accent",
-            borderRadius: 12,
-          }}
+        <Box
+          sx={{ display: "flex", flexDirection: "column", gap: "14px", mt: 8 }}
         >
-          sign in
-        </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              gridColumn: "1",
+              alignItems: "center",
+              backgroundColor: "custom.accent",
+              borderRadius: 12,
+              height: 44,
+            }}
+          >
+            sign in
+          </Button>
+          <Button
+            component={Link}
+            href={"/register"}
+            variant="text"
+            sx={{
+              gridColumn: "1",
+              fontSize: "12px",
+              color: "#1d1e2140",
+              fontWeight: "regular",
+              textTransform: "none",
+            }}
+          >
+            Don&#39;t have an account?
+          </Button>
+        </Box>
       </Stack>
     </form>
   );

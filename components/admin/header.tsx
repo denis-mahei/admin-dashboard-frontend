@@ -7,10 +7,10 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
-import LogoImage from "@/components/header/logo-image";
+import LogoImage from "@/components/admin/logo-image";
 import { usePathname } from "next/navigation";
-import { pages } from "@/components/header/sidebar";
-import LogoutButton from "@/components/header/logout-button";
+import { pages } from "@/components/admin/sidebar";
+import LogoutButton from "@/components/admin/logout-button";
 
 interface Props {
   onToggleDrawer: () => void;

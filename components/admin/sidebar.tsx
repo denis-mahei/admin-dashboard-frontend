@@ -14,7 +14,7 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import CloseIcon from "@mui/icons-material/Close";
 import { usePathname } from "next/navigation";
 import Box from "@mui/material/Box";
-import LogoutButton from "@/components/header/logout-button";
+import LogoutButton from "@/components/admin/logout-button";
 
 export const pages = [
   {
@@ -97,7 +97,7 @@ function Sidebar({ mobileOpen, onToggleDrawer }: Props) {
                     <ListItemIcon
                       sx={{
                         minWidth: "auto",
-                        color: pathname.startsWith(page.path)
+                        color: pathname.endsWith(page.path)
                           ? "custom.accent"
                           : "custom.text",
                       }}

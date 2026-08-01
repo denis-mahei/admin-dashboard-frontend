@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Header from "@/components/header/header";
-import Sidebar from "@/components/header/sidebar";
+import Header from "@/components/admin/header";
+import Sidebar from "@/components/admin/sidebar";
 import Box from "@mui/material/Box";
 
 interface LayoutProps {

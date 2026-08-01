@@ -1,4 +1,5 @@
 "use client";
+
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -51,10 +52,11 @@ const theme = createTheme({
     MuiTextField: {
       defaultProps: {
         variant: "outlined",
-        size: "medium",
+        size: "small",
       },
       styleOverrides: {
         root: {
+          width: "100%",
           "& .MuiOutlinedInput-root": {
             borderRadius: 20,
           },
