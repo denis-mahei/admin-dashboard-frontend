@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export function proxy(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const token = req.cookies.get("access_token");
 
   if (!token) {
@@ -11,5 +11,12 @@ export function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/cart/:path*"],
+  matcher: [
+    "/dashboard",
+    "/orders",
+    "/customers",
+    "/suppliers",
+    "/products",
+    "/",
+  ],
 };

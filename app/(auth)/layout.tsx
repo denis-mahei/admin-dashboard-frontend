@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import { Container } from "@mui/material";
-import LogoImage from "@/components/admin/logo-image";
+import LogoImage from "@/components/logo-image";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 

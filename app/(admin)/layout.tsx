@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Header from "@/components/admin/header";
-import Sidebar from "@/components/admin/sidebar";
+import Header from "@/components/header";
+import Sidebar from "@/components/sidebar";
 import Box from "@mui/material/Box";
 
 interface LayoutProps {
@@ -11,6 +11,7 @@ interface LayoutProps {
 
 function Layout({ children }: LayoutProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <>
       <Header onToggleDrawer={() => setMobileOpen(!mobileOpen)} />
@@ -19,7 +20,7 @@ function Layout({ children }: LayoutProps) {
           mobileOpen={mobileOpen}
           onToggleDrawer={() => setMobileOpen(false)}
         />
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Box component="main" sx={{ flexGrow: 1, px: "40px", py: "20px" }}>
           {children}
         </Box>
       </Box>

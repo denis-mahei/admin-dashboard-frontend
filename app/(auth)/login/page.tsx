@@ -13,7 +13,6 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import axios from "axios";
 import Box from "@mui/material/Box";
-import Link from "@/components/link";
 
 function Page() {
   const router = useRouter();
@@ -105,20 +104,6 @@ function Page() {
             }}
           >
             sign in
-          </Button>
-          <Button
-            component={Link}
-            href={"/register"}
-            variant="text"
-            sx={{
-              gridColumn: "1",
-              fontSize: "12px",
-              color: "#1d1e2140",
-              fontWeight: "regular",
-              textTransform: "none",
-            }}
-          >
-            Don&#39;t have an account?
           </Button>
         </Box>
       </Stack>

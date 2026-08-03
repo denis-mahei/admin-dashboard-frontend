@@ -10,3 +10,13 @@ Content-Type: application/json
 ### get user info:
 GET {{host}}/auth/user-info
 Content-Type: application/json
+
+### get suppliers:
+GET {{host}}/suppliers
+
+
+### get products:
+GET {{host}}/products
+
+### get customers:
+GET {{host}}/customers

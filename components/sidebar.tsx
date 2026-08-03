@@ -14,7 +14,7 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import CloseIcon from "@mui/icons-material/Close";
 import { usePathname } from "next/navigation";
 import Box from "@mui/material/Box";
-import LogoutButton from "@/components/admin/logout-button";
+import LogoutButton from "@/components/logout-button";
 
 export const pages = [
   {
@@ -22,15 +22,15 @@ export const pages = [
     name: "Dashboard",
     icon: <DashboardIcon />,
   },
-  { path: "/dashboard/orders", name: "All Orders", icon: <ShoppingCartIcon /> },
-  { path: "/dashboard/products", name: "All Products", icon: <ScienceIcon /> },
+  { path: "/orders", name: "All Orders", icon: <ShoppingCartIcon /> },
+  { path: "/products", name: "All Products", icon: <ScienceIcon /> },
   {
-    path: "/dashboard/suppliers",
+    path: "/suppliers",
     name: "All Suppliers",
     icon: <LocalPharmacyIcon />,
   },
   {
-    path: "/dashboard/customers",
+    path: "/customers",
     name: "All Customers",
     icon: <PeopleAltIcon />,
   },
