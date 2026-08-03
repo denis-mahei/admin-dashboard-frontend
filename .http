@@ -1,0 +1,22 @@
+### login:
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "vendor@gmail.com",
+  "password": "password123"
+}
+
+### get user info:
+GET {{host}}/auth/user-info
+Content-Type: application/json
+
+### get suppliers:
+GET {{host}}/suppliers
+
+
+### get products:
+GET {{host}}/products
+
+### get customers:
+GET {{host}}/customers

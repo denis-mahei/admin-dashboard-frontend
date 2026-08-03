@@ -1,9 +1,28 @@
 "use client";
+
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   typography: {
     fontFamily: "var(--font-inter)",
+  },
+
+  palette: {
+    primary: {
+      main: "#1d1e21",
+      textPrimary: "#6c757d",
+      textSecondary: "rgba(29, 30, 33, 0.4)",
+    },
+    custom: {
+      accent: "#59b17a",
+      text: "#dcdddf",
+    },
+    secondary: {
+      main: "rgba(29, 30, 33, 0.1)",
+    },
+    background: {
+      default: "#f7f8fa",
+    },
   },
   components: {
     MuiAppBar: {
@@ -11,8 +30,47 @@ const theme = createTheme({
         root: {
           backgroundColor: "transparent",
           boxShadow: "none",
-          borderBottom: "black",
+          borderBottom: `1px solid #e0e0e0`,
+          paddingLeft: 0,
         },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          height: 44,
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: theme.palette.custom.accent,
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: theme.palette.custom.accent,
+            borderWidth: "1px",
+          },
+        }),
+      },
+    },
+    MuiTextField: {
+      defaultProps: {
+        variant: "outlined",
+        size: "small",
+      },
+      styleOverrides: {
+        root: {
+          width: "100%",
+          "& .MuiOutlinedInput-root": {
+            borderRadius: 20,
+          },
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          color: theme.palette.primary.textSecondary,
+          "&.Mui-focused": {
+            color: theme.palette.custom.accent,
+          },
+        }),
       },
     },
   },
