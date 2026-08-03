@@ -78,9 +78,9 @@ function Page() {
                         onClick={() => setShowPassword(!showPassword)}
                       >
                         {showPassword ? (
-                          <VisibilityOff sx={{ fontSize: "16px" }} />
+                          <VisibilityOff sx={{ fontSize: "18px" }} />
                         ) : (
-                          <Visibility sx={{ fontSize: "16px" }} />
+                          <Visibility sx={{ fontSize: "18px" }} />
                         )}
                       </IconButton>
                     </InputAdornment>
