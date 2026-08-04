@@ -17,6 +17,7 @@ const theme = createTheme({
     },
     custom: {
       accent: "#59b17a",
+      accentHover: "#3f945f",
       accent2: "#e85050",
       bgAccent: "#59b17a1a",
       bgAccent2: "#e850501a",
