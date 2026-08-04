@@ -20,7 +20,10 @@ function Layout({ children }: LayoutProps) {
           mobileOpen={mobileOpen}
           onToggleDrawer={() => setMobileOpen(false)}
         />
-        <Box component="main" sx={{ flexGrow: 1, px: "40px", py: "20px" }}>
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, px: { xs: "20px", md: "40px" }, py: "20px" }}
+        >
           {children}
         </Box>
       </Box>

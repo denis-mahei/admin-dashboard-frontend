@@ -4,7 +4,7 @@ import React from "react";
 import IconButton from "@mui/material/IconButton";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import { logout } from "@/lib/api";
+import { logout } from "@/lib/api/api.client";
 import { enqueueSnackbar } from "notistack";
 import { Logout } from "@mui/icons-material";
 

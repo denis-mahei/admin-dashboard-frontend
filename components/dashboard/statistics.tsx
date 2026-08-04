@@ -6,6 +6,10 @@ type StatisticsProps = {
 };
 
 function Statistics({ children }: StatisticsProps) {
-  return <Box sx={{ display: "flex", gap: "20px" }}>{children}</Box>;
+  return (
+    <Box sx={{ display: "flex", flexWrap: "wrap", width: "100%", gap: "20px" }}>
+      {children}
+    </Box>
+  );
 }
 export default Statistics;

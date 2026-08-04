@@ -16,7 +16,7 @@ function StatisticsItem({ title, icon, value }: StatisticsItemProps) {
         flexDirection: "column",
         px: "18px",
         py: "14px",
-        width: "240px",
+        width: { xs: "158px", sm: "221px", lg: "240px" },
         backgroundColor: "#fff",
         borderRadius: "8px",
         border: "1px solid",

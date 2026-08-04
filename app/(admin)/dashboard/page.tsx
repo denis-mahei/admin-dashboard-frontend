@@ -1,6 +1,6 @@
 import React from "react";
 import Statistics from "@/components/dashboard/statistics";
-import { getCustomers, getProducts, getSuppliers } from "@/lib/api";
+import { getCustomers, getProducts, getSuppliers } from "@/lib/api/api.server";
 import SvgIcon from "@/components/svg-icon";
 import StatisticsItem from "@/components/dashboard/statistics-item";
 

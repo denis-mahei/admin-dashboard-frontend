@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginValues } from "@/lib/schemas/authSchema";
 import { Button, InputAdornment, Stack, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { signIn } from "@/lib/api";
+import { signIn } from "@/lib/api/api.client";
 import { enqueueSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -30,8 +30,7 @@ function Page() {
     onSuccess: (data) => {
       queryClient.setQueryData(["user"], data);
       enqueueSnackbar("Login successful", { variant: "success" });
-      if (data.role === "ADMIN") router.push("/dashboard");
-      else router.push("/");
+      router.push("/dashboard");
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {

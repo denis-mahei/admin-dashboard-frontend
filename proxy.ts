@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 export async function proxy(req: NextRequest) {
-  const token = req.cookies.get("access_token");
-
+  const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
   if (!token) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
@@ -16,7 +17,7 @@ export const config = {
     "/orders",
     "/customers",
     "/suppliers",
-    "/products",
+    "/products/:path*",
     "/",
   ],
 };
