@@ -7,7 +7,15 @@ type StatisticsProps = {
 
 function Statistics({ children }: StatisticsProps) {
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap", width: "100%", gap: "20px" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        width: "100%",
+        gap: "20px",
+        mb: "40px",
+      }}
+    >
       {children}
     </Box>
   );

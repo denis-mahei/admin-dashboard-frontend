@@ -12,6 +12,7 @@ const theme = createTheme({
       main: "#1d1e21",
       textPrimary: "#6c757d",
       textSecondary: "rgba(29, 30, 33, 0.4)",
+      tableHeader: "#e7f1ed",
     },
     custom: {
       accent: "#59b17a",
@@ -60,6 +61,14 @@ const theme = createTheme({
           "& .MuiOutlinedInput-root": {
             borderRadius: 20,
           },
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          paddingLeft: 20,
+          paddingRight: 20,
         },
       },
     },

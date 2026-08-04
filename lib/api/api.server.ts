@@ -8,8 +8,6 @@ const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
-export const getUserInfo = async () => await api.get("/auth/user-info");
-
 export const getProducts = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
@@ -58,4 +56,18 @@ export const getCustomers = async () => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const getDashboardData = async () => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
+  if (!token) {
+    return NextResponse.json({ message: "Unauthorized" });
+  }
+  const { data } = await api.get("/dashboard", {
+    headers: {
+      Cookie: `access_token=${token}`,
+    },
+  });
+  return data;
 };

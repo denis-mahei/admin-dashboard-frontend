@@ -20,3 +20,7 @@ GET {{host}}/products
 
 ### get customers:
 GET {{host}}/customers
+
+
+### get dashboard:
+GET {{host}}/dashboard
