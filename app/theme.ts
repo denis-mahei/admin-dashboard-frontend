@@ -40,6 +40,16 @@ const theme = createTheme({
         },
       },
     },
+    MuiTableContainer: {
+      styleOverrides: {
+        root: {
+          borderRadius: "0 0 8px 8px",
+          border: `1px solid #1D1E211A`,
+          borderTop: "none",
+          boxShadow: "none",
+        },
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: ({ theme }) => ({

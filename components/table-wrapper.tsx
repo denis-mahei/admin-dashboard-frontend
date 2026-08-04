@@ -11,7 +11,6 @@ function TableWrapper({ title, children }: TableWrapperProps) {
   return (
     <Box
       sx={{
-        border: "1px solid",
         borderRadius: 2,
         overflow: "hidden",
         borderColor: "secondary.main",
