@@ -18,6 +18,5 @@ export const config = {
     "/customers",
     "/suppliers",
     "/products/:path*",
-    "/",
   ],
 };
