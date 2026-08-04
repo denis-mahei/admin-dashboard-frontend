@@ -10,12 +10,16 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#1d1e21",
+      bgError: "#1d1e211a",
       textPrimary: "#6c757d",
       textSecondary: "rgba(29, 30, 33, 0.4)",
       tableHeader: "#e7f1ed",
     },
     custom: {
       accent: "#59b17a",
+      accent2: "#e85050",
+      bgAccent: "#59b17a1a",
+      bgAccent2: "#e850501a",
       text: "#dcdddf",
     },
     secondary: {

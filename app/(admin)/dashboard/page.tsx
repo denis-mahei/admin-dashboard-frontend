@@ -5,6 +5,7 @@ import SvgIcon from "@/components/svg-icon";
 import StatisticsItem from "@/components/dashboard/statistics-item";
 import RecentCustomers from "@/components/dashboard/recent-customers";
 import Box from "@mui/material/Box";
+import IncomeExpenses from "@/components/dashboard/income-expenses";
 
 async function DashboardPage() {
   const {
@@ -45,8 +46,17 @@ async function DashboardPage() {
           />
         ))}
       </Statistics>
-      <Box sx={{ display: "flex", flexDirection: { xs: "column", lg: "row" } }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", lg: "row" },
+          alignItems: { lg: "start" },
+          gap: "20px",
+          width: "100%",
+        }}
+      >
         <RecentCustomers recentCustomers={recentCustomers} />
+        <IncomeExpenses expensesData={incomesExpenses} />
       </Box>
     </>
   );

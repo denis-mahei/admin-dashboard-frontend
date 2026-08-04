@@ -8,8 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Customer } from "@/lib/types/definitions";
 import Image from "next/image";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import TableWrapper from "@/components/table-wrapper";
 
 type RecentCustomersProps = {
   recentCustomers: Customer[];
@@ -17,20 +16,7 @@ type RecentCustomersProps = {
 
 function RecentCustomers({ recentCustomers }: RecentCustomersProps) {
   return (
-    <Box
-      sx={{
-        border: "1px solid",
-        borderRadius: 2,
-        overflow: "hidden",
-        borderColor: "secondary.main",
-        maxWidth: "630px",
-      }}
-    >
-      <Box sx={{ backgroundColor: "primary.tableHeader", p: "20px" }}>
-        <Typography sx={{ fontSize: "18px", fontWeight: "bold" }}>
-          Recent Customers
-        </Typography>
-      </Box>
+    <TableWrapper title={"Recent customers"}>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
@@ -46,7 +32,7 @@ function RecentCustomers({ recentCustomers }: RecentCustomersProps) {
                 },
               }}
             >
-              <TableCell>Name</TableCell>
+              <TableCell sx={{ paddingLeft: 0 }}>Name</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Spent</TableCell>
             </TableRow>
@@ -75,6 +61,7 @@ function RecentCustomers({ recentCustomers }: RecentCustomersProps) {
                     flexDirection: { xs: "column", sm: "row" },
                     alignItems: { xs: "start", sm: "center" },
                     gap: 1,
+                    paddingLeft: 0,
                   }}
                 >
                   <Image
@@ -85,14 +72,14 @@ function RecentCustomers({ recentCustomers }: RecentCustomersProps) {
                   />
                   {row.name}
                 </TableCell>
-                <TableCell sx>{row.email}</TableCell>
+                <TableCell>{row.email}</TableCell>
                 <TableCell>{row.spent}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-    </Box>
+    </TableWrapper>
   );
 }
 export default RecentCustomers;

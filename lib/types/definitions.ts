@@ -8,3 +8,10 @@ export interface Customer {
   address: string;
   register_date: Date;
 }
+
+export interface IncomeExpenses {
+  id: number;
+  name: string;
+  amount: number;
+  type: "Error" | "Income" | "Expense";
+}
