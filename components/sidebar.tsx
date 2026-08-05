@@ -98,8 +98,8 @@ function Sidebar({ mobileOpen, onToggleDrawer }: Props) {
                       sx={{
                         minWidth: "auto",
                         color: pathname.endsWith(page.path)
-                          ? "custom.accent"
-                          : "custom.text",
+                          ? "primary.main"
+                          : "action.disabled",
                       }}
                     >
                       {page.icon}
@@ -160,8 +160,8 @@ function Sidebar({ mobileOpen, onToggleDrawer }: Props) {
                   sx={{
                     minWidth: "auto",
                     color: pathname.endsWith(page.path)
-                      ? "custom.accent"
-                      : "custom.text",
+                      ? "primary.main"
+                      : "action.disabled",
                   }}
                 >
                   {page.icon}

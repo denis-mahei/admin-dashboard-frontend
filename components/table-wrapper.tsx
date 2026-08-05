@@ -17,7 +17,7 @@ function TableWrapper({ title, children }: TableWrapperProps) {
         flexGrow: 1,
       }}
     >
-      <Box sx={{ backgroundColor: "primary.tableHeader", p: "20px" }}>
+      <Box sx={{ backgroundColor: "primary.light", p: "20px" }}>
         <Typography
           sx={{
             fontSize: "18px",

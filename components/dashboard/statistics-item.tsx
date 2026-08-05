@@ -20,7 +20,7 @@ function StatisticsItem({ title, icon, value }: StatisticsItemProps) {
         backgroundColor: "#fff",
         borderRadius: "8px",
         border: "1px solid",
-        borderColor: "secondary.main",
+        borderColor: "divider",
       }}
     >
       <Box
@@ -30,7 +30,7 @@ function StatisticsItem({ title, icon, value }: StatisticsItemProps) {
         {icon}
         <Typography
           component={"h3"}
-          sx={{ color: "primary.textSecondary", fontSize: "12px" }}
+          sx={{ color: "text.disabled", fontSize: "12px" }}
         >
           {title}
         </Typography>

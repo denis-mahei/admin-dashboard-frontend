@@ -16,23 +16,24 @@ type IncomeExpensesProps = {
 
 const typeStyles = {
   Income: {
-    bg: "custom.bgAccent",
-    color: "custom.accent",
+    bg: "primary.light",
+    color: "primary.main",
     line: "none",
   },
   Expense: {
-    bg: "custom.bgAccent2",
-    color: "custom.accent2",
+    bg: "error.light",
+    color: "error.main",
     line: "none",
   },
   Error: {
-    bg: "primary.bgError",
-    color: "primary.main",
+    bg: "text.secondary",
+    color: "text.primary",
     line: "line-through",
   },
 } as const;
 
 function IncomeExpenses({ expensesData }: IncomeExpensesProps) {
+  const fiveItems = expensesData.slice(0, 5);
   return (
     <TableWrapper title={"income/expenses"}>
       <TableContainer component={Paper}>
@@ -41,7 +42,7 @@ function IncomeExpenses({ expensesData }: IncomeExpensesProps) {
             <TableRow
               sx={{
                 "& .MuiTableCell-root": {
-                  color: "primary.textSecondary",
+                  color: "text.disabled",
                   fontWeight: "normal",
                   paddingLeft: 0,
                 },
@@ -51,12 +52,13 @@ function IncomeExpenses({ expensesData }: IncomeExpensesProps) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {expensesData.map((row) => (
+            {fiveItems.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{
                   "&:last-child td, &:last-child th": { border: 0 },
                   "& .MuiTableCell-root": {
+                    height: 69,
                     fontWeight: 500,
                     fontSize: { xs: "12px", sm: "14px", md: "16px" },
                   },

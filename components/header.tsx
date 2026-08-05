@@ -51,7 +51,6 @@ function ResponsiveAppBar({ onToggleDrawer }: Props) {
             component="h1"
             sx={{
               fontSize: { xs: "20px", md: "24px" },
-              color: "primary.main",
               fontWeight: 600,
             }}
           >

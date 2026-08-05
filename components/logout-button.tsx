@@ -25,12 +25,12 @@ function LogoutButton() {
         borderRadius: "100%",
         width: "44px",
         height: "44px",
-        backgroundColor: "custom.accent",
+        backgroundColor: "primary.main",
         color: "white",
         boxShadow: "0 -1px 7px 0 rgba(71, 71, 71, 0.05)",
         transition: "background 0.3s ease-in-out",
         "&:hover": {
-          backgroundColor: "custom.accentHover",
+          backgroundColor: "primary.dark",
         },
       }}
     >

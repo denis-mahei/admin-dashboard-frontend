@@ -1,35 +1,36 @@
 "use client";
 
 import { createTheme } from "@mui/material/styles";
+import { alpha } from "@mui/material";
 
 const theme = createTheme({
   typography: {
     fontFamily: "var(--font-inter)",
   },
-
   palette: {
     primary: {
-      main: "#1d1e21",
-      bgError: "#1d1e211a",
-      textPrimary: "#6c757d",
-      textSecondary: "rgba(29, 30, 33, 0.4)",
-      tableHeader: "#e7f1ed",
+      main: "#59b17a",
+      dark: "#3f945f",
+      light: alpha("#3f945f", 0.1),
     },
-    custom: {
-      accent: "#59b17a",
-      accentHover: "#3f945f",
-      accent2: "#e85050",
-      bgAccent: "#59b17a1a",
-      bgAccent2: "#e850501a",
-      text: "#dcdddf",
+    error: {
+      main: "#e85050",
+      light: alpha("#e85050", 0.1),
     },
-    secondary: {
-      main: "rgba(29, 30, 33, 0.1)",
+    text: {
+      primary: "#1d1e21",
+      disabled: alpha("#1d1e21", 0.4),
+      secondary: alpha("#1d1e21", 0.1),
     },
     background: {
-      default: "#f7f8fa",
+      paper: "#fff",
+    },
+    divider: alpha("#1d1e21", 0.1),
+    action: {
+      disabled: "#dcdddf",
     },
   },
+
   components: {
     MuiAppBar: {
       styleOverrides: {
@@ -56,10 +57,10 @@ const theme = createTheme({
         root: ({ theme }) => ({
           height: 44,
           "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: theme.palette.custom.accent,
+            borderColor: theme.palette.primary.main,
           },
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: theme.palette.custom.accent,
+            borderColor: theme.palette.primary.main,
             borderWidth: "1px",
           },
         }),
@@ -90,9 +91,9 @@ const theme = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: ({ theme }) => ({
-          color: theme.palette.primary.textSecondary,
+          color: theme.palette.text.disabled,
           "&.Mui-focused": {
-            color: theme.palette.custom.accent,
+            color: theme.palette.primary.main,
           },
         }),
       },

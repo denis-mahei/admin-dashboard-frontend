@@ -23,7 +23,7 @@ function RecentCustomers({ recentCustomers }: RecentCustomersProps) {
             <TableRow
               sx={{
                 "& .MuiTableCell-root": {
-                  color: "primary.textSecondary",
+                  color: "text.disabled",
                   fontWeight: "normal",
                 },
                 "& .MuiTableCell-root:not(:last-child)": {
