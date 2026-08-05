@@ -24,3 +24,7 @@ GET {{host}}/customers
 
 ### get dashboard:
 GET {{host}}/dashboard
+
+
+### get orders:
+GET {{host}}/orders

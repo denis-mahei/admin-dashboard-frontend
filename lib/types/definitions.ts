@@ -15,3 +15,14 @@ export interface IncomeExpenses {
   amount: number;
   type: "Error" | "Income" | "Expense";
 }
+
+export interface Order {
+  id: number;
+  photo: string;
+  name: string;
+  address: string;
+  products: number;
+  price: number;
+  status: "Confirmed" | "Completed" | "Pending" | "Cancelled" | "Processing";
+  order_date: Date;
+}

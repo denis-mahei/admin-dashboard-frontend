@@ -71,3 +71,32 @@ export const getDashboardData = async () => {
   });
   return data;
 };
+
+export const getOrders = async ({
+  name,
+  sortBy,
+  page = 1,
+  limit = 5,
+}: {
+  name: string;
+  sortBy: string;
+  page: number;
+  limit: number;
+}) => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
+  if (!token) {
+    return NextResponse.json({ message: "Unauthorized" });
+  }
+  const { data } = await api.get("/orders", {
+    headers: {
+      Cookie: `access_token=${token}`,
+    },
+    params: {
+      name,
+      page,
+      limit,
+    },
+  });
+  return data;
+};
