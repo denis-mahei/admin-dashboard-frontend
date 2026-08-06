@@ -4,9 +4,6 @@ import OrdersTable from "@/components/orders/orders-table";
 import SearchForm from "@/components/orders/search-form";
 import Pagination from "@/components/orders/pagination";
 import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
-import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
-import Link from "@/components/link";
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;

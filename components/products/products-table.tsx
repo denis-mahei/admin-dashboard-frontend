@@ -1,22 +1,22 @@
 import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
+import TableWrapper from "@/components/table-wrapper";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Customer } from "@/lib/types/definitions";
-import Image from "next/image";
-import TableWrapper from "@/components/table-wrapper";
+import TableCell from "@mui/material/TableCell";
+import TableBody from "@mui/material/TableBody";
+import { Product } from "@/lib/types/definitions";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Box from "@mui/material/Box";
+import { Button } from "@mui/material";
 
-type RecentCustomersProps = {
-  recentCustomers: Customer[];
+type ProductsTableProps = {
+  products: Product[];
 };
 
-function RecentCustomers({ recentCustomers }: RecentCustomersProps) {
+function ProductsTable({ products }: ProductsTableProps) {
   return (
-    <TableWrapper title={"Recent customers"}>
+    <TableWrapper title={"All Products"} width={960}>
       <TableHead>
         <TableRow
           sx={{
@@ -30,15 +30,18 @@ function RecentCustomers({ recentCustomers }: RecentCustomersProps) {
             },
           }}
         >
-          <TableCell sx={{ paddingLeft: 0 }}>Name</TableCell>
-          <TableCell>Email</TableCell>
-          <TableCell>Spent</TableCell>
+          <TableCell sx={{ paddingLeft: 0 }}>Product info</TableCell>
+          <TableCell>Category</TableCell>
+          <TableCell>Stock</TableCell>
+          <TableCell>Suppliers</TableCell>
+          <TableCell>Price</TableCell>
+          <TableCell>Action</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {recentCustomers.map((row) => (
+        {products.map((row) => (
           <TableRow
-            key={row.name}
+            key={row.id}
             sx={{
               "&:last-child td, &:last-child th": { border: 0 },
               "& .MuiTableCell-root:not(:last-child)": {
@@ -62,15 +65,21 @@ function RecentCustomers({ recentCustomers }: RecentCustomersProps) {
                 paddingLeft: 0,
               }}
             >
-              <Image src={row.photo} alt={row.name} width={36} height={36} />
               {row.name}
             </TableCell>
-            <TableCell>{row.email}</TableCell>
-            <TableCell>{row.spent}</TableCell>
+            <TableCell>{row.category}</TableCell>
+            <TableCell>{row.stock}</TableCell>
+            <TableCell>{row.supplier.company}</TableCell>
+            <TableCell>{row.price}</TableCell>
+            <TableCell>
+              <Button sx={{ flexGrow: 1 }}>
+                <EditIcon />
+              </Button>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
     </TableWrapper>
   );
 }
-export default RecentCustomers;
+export default ProductsTable;

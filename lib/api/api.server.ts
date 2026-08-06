@@ -8,7 +8,17 @@ const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
-export const getProducts = async () => {
+export const getProducts = async ({
+  name,
+  category,
+  page = 1,
+  limit = 5,
+}: {
+  name?: string;
+  category?: string;
+  page: number;
+  limit?: number;
+}) => {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
   if (!token) {
@@ -19,7 +29,14 @@ export const getProducts = async () => {
       headers: {
         Cookie: `access_token=${token}`,
       },
+      params: {
+        name,
+        category,
+        page,
+        limit,
+      },
     });
+    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

@@ -26,3 +26,23 @@ export interface Order {
   status: "Confirmed" | "Completed" | "Pending" | "Shipped" | "Processing";
   order_date: Date;
 }
+
+export interface Supplier {
+  id: number;
+  name: string;
+  address: string;
+  company: string;
+  date: Date;
+  amount: number;
+  status: "Active" | "Deactive";
+}
+
+export interface Product {
+  id: number;
+  photo: string;
+  name: string;
+  stock: number;
+  price: number;
+  supplier: Supplier;
+  category: string;
+}
