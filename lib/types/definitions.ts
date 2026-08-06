@@ -23,6 +23,6 @@ export interface Order {
   address: string;
   products: number;
   price: number;
-  status: "Confirmed" | "Completed" | "Pending" | "Cancelled" | "Processing";
+  status: "Confirmed" | "Completed" | "Pending" | "Shipped" | "Processing";
   order_date: Date;
 }

@@ -16,7 +16,7 @@ function Pagination({ perPages, page }: PaginationProps) {
         justifyContent: "center",
         alignItems: "center",
         gap: 1,
-        mt: "20px",
+        // mt: "20px",
       }}
     >
       {perPages.map((_, i) => (

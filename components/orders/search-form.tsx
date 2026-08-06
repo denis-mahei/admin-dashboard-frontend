@@ -1,10 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Button, TextField } from "@mui/material";
-import SvgIcon from "@/components/svg-icon";
-import Typography from "@mui/material/Typography";
+import { TextField } from "@mui/material";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type FormValues = {
@@ -15,57 +14,39 @@ function SearchForm() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { control, handleSubmit } = useForm<FormValues>({
+
+  const { control, watch } = useForm<FormValues>({
     defaultValues: {
-      name: "",
+      name: searchParams.get("name") ?? "",
     },
   });
-  const handleSearch = (value: FormValues) => {
+  const nameVal = watch("name");
+
+  useEffect(() => {
     const params = new URLSearchParams(searchParams);
-    params.set("name", value.name);
-    router.replace(`${pathname}?${params.toString()}`);
-  };
+    const timer = setTimeout(() => {
+      params.set("name", nameVal);
+      params.delete("page");
+      if (!nameVal) params.delete("name");
+      router.replace(`${pathname}?${params.toString()}`);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [nameVal]);
 
   return (
-    <form onSubmit={handleSubmit(handleSearch)}>
-      <Controller
-        name="name"
-        control={control}
-        render={({ field, fieldState }) => (
-          <TextField
-            {...field}
-            label="User Name"
-            error={!!fieldState.error}
-            helperText={fieldState.error?.message}
-            sx={{ maxWidth: "224px" }}
-          />
-        )}
-      />
-      <Button
-        type="submit"
-        variant={"contained"}
-        sx={{
-          ml: "14px",
-          borderRadius: "60px",
-          px: "30px",
-          py: "13px",
-          maxHeight: "44px",
-        }}
-      >
-        <SvgIcon name={"filter"} width={"14"} height={"14"} />
-        <Typography
-          component="p"
-          sx={{
-            color: "white",
-            textTransform: "capitalize",
-            ml: 1,
-            fontWeight: 500,
-          }}
-        >
-          Filter
-        </Typography>
-      </Button>
-    </form>
+    <Controller
+      name="name"
+      control={control}
+      render={({ field, fieldState }) => (
+        <TextField
+          {...field}
+          label="User Name"
+          error={!!fieldState.error}
+          helperText={fieldState.error?.message}
+          sx={{ maxWidth: "224px" }}
+        />
+      )}
+    />
   );
 }
 export default SearchForm;

@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import { Order } from "@/lib/types/definitions";
 import TableWrapper from "@/components/table-wrapper";
@@ -11,16 +9,27 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import Image from "next/image";
+import Typography from "@mui/material/Typography";
 
 type OrdersTableProps = {
   orders: Order[];
 };
 
+const statusTypes = {
+  Completed: { backgroundColor: "#59B17A1a", color: "#21a550" },
+  Delivered: { backgroundColor: "rgb(122 189 149 / 0.1)", color: "#59B17A" },
+  Confirmed: { backgroundColor: "#8059E41a", color: "#8059E4" },
+  Shipped: { backgroundColor: "#2577e31a", color: "#50a8ff" },
+  Pending: { backgroundColor: "#F790421a", color: "#F79042" },
+  Processing: { backgroundColor: "#70A6E81a", color: "#2577e3" },
+  Cancelled: { backgroundColor: "error.light", color: "error.main" },
+} as const;
+
 function OrdersTable({ orders }: OrdersTableProps) {
   return (
     <TableWrapper title={"All Orders"}>
       <TableContainer component={Paper}>
-        <Table aria-label="simple table">
+        <Table aria-label="simple table" sx={{ minWidth: 960 }}>
           <TableHead>
             <TableRow
               sx={{
@@ -87,7 +96,21 @@ function OrdersTable({ orders }: OrdersTableProps) {
                   })}
                 </TableCell>
                 <TableCell>{row.price}</TableCell>
-                <TableCell>{row.status}</TableCell>
+                <TableCell>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "12px", sm: "14px" },
+                      color: statusTypes[row.status].color,
+                      py: "4px",
+                      px: "13px",
+                      borderRadius: "40px",
+                      textAlign: "center",
+                      backgroundColor: statusTypes[row.status].backgroundColor,
+                    }}
+                  >
+                    {row.status}
+                  </Typography>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

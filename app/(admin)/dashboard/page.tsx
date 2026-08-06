@@ -35,7 +35,7 @@ async function DashboardPage() {
   ];
 
   return (
-    <>
+    <Box sx={{ pt: "20px" }}>
       <Statistics>
         {items.map((item) => (
           <StatisticsItem
@@ -58,7 +58,7 @@ async function DashboardPage() {
         <RecentCustomers recentCustomers={recentCustomers} />
         <IncomeExpenses expensesData={incomesExpenses} />
       </Box>
-    </>
+    </Box>
   );
 }
 

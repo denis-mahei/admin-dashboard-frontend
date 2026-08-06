@@ -3,6 +3,10 @@ import { getOrders } from "@/lib/api/api.server";
 import OrdersTable from "@/components/orders/orders-table";
 import SearchForm from "@/components/orders/search-form";
 import Pagination from "@/components/orders/pagination";
+import Box from "@mui/material/Box";
+import { Button } from "@mui/material";
+import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
+import Link from "@/components/link";
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -28,11 +32,27 @@ async function Page({ searchParams }: PageProps) {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
-    <>
-      <SearchForm />
+    <Box
+      sx={{
+        pt: { xs: "40px", sm: "50px", md: "75px" },
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <SearchForm />
+      </Box>
+
       <OrdersTable orders={data} />
       <Pagination perPages={pages} page={page} />
-    </>
+    </Box>
   );
 }
 

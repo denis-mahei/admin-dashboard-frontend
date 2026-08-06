@@ -22,7 +22,11 @@ function Layout({ children }: LayoutProps) {
         />
         <Box
           component="main"
-          sx={{ flexGrow: 1, px: { xs: "20px", md: "40px" }, py: "20px" }}
+          sx={{
+            flexGrow: 1,
+            minWidth: 0,
+            px: { xs: "20px", md: "40px" },
+          }}
         >
           {children}
         </Box>
