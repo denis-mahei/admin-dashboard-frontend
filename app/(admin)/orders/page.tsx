@@ -40,16 +40,7 @@ async function Page({ searchParams }: PageProps) {
         gap: "20px",
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <SearchForm />
-      </Box>
-
+      <SearchForm />
       <OrdersTable orders={data} />
       <Pagination perPages={pages} page={page} />
     </Box>
