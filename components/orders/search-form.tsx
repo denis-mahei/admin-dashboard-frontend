@@ -5,27 +5,25 @@ import { Controller, useForm } from "react-hook-form";
 import { Button, TextField } from "@mui/material";
 import SvgIcon from "@/components/svg-icon";
 import Typography from "@mui/material/Typography";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type FormValues = {
   name: string;
 };
 
 function SearchForm() {
+  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  console.log(searchParams);
-  const search = searchParams.get("name");
-  console.log(search);
-  const { control, handleSubmit, reset } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       name: "",
     },
   });
-  console.log(pathname);
   const handleSearch = (value: FormValues) => {
-    console.log(value);
-    reset();
+    const params = new URLSearchParams(searchParams);
+    params.set("name", value.name);
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   return (

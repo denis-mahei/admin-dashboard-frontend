@@ -74,12 +74,14 @@ export const getDashboardData = async () => {
 
 export const getOrders = async ({
   name,
-  sortBy,
+  sortBy = "name",
+  order = "asc",
   page = 1,
   limit = 5,
 }: {
   name: string;
   sortBy: string;
+  order: string;
   page: number;
   limit: number;
 }) => {
@@ -94,6 +96,8 @@ export const getOrders = async ({
     },
     params: {
       name,
+      sortBy,
+      order,
       page,
       limit,
     },
