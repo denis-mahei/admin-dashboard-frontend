@@ -14,10 +14,10 @@ export const getProducts = async ({
   page = 1,
   limit = 5,
 }: {
-  name?: string;
-  category?: string;
+  name: string;
+  category: string;
   page: number;
-  limit?: number;
+  limit: number;
 }) => {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
@@ -36,11 +36,24 @@ export const getProducts = async ({
         limit,
       },
     });
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
   }
+};
+
+export const addNewProduct = async (payload) => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
+  if (!token) {
+    return NextResponse.json({ message: "Unauthorized" });
+  }
+  const { data } = await api.post(`/products`, payload, {
+    headers: {
+      Cookie: `access_token=${token}`,
+    },
+  });
+  return data;
 };
 
 export const getSuppliers = async () => {

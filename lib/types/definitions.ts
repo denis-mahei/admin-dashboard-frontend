@@ -44,5 +44,5 @@ export interface Product {
   stock: number;
   price: number;
   supplier: Supplier;
-  category: string;
+  category: "Hand" | "Medicine" | "Leg" | "Heart" | "Head";
 }

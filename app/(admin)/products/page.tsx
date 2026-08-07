@@ -1,6 +1,8 @@
 import ProductsTable from "@/components/products/products-table";
 import { getProducts } from "@/lib/api/api.server";
 import Box from "@mui/material/Box";
+import { getSearchParams } from "@/lib/utils/search-params";
+import { getNumberParams } from "@/lib/utils/number-params";
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -8,14 +10,18 @@ interface PageProps {
 
 async function Page({ searchParams }: PageProps) {
   const params = await searchParams;
-  const name = typeof params.name === "string" ? params.name : "";
-  const category = typeof params.category === "string" ? params.category : "";
-  const currentPage = typeof params.page === "string" ? params.page : "1";
-  const page = Number(currentPage);
+  const name = getSearchParams(params.name);
+  const category = getSearchParams(params.category);
+  const page = getNumberParams(params.page, 1);
   const limit = 5;
-  const { data, totalProducts } = await getProducts({ name });
-  console.log(data);
-  console.log(totalProducts);
+  const { data, totalProducts } = await getProducts({
+    name,
+    category,
+    page,
+    limit,
+  });
+  const totalPages = Math.ceil(totalProducts / limit);
+  console.log(data, totalPages);
   return (
     <Box sx={{ py: "20px" }}>
       <ProductsTable products={data} />

@@ -4,6 +4,8 @@ import OrdersTable from "@/components/orders/orders-table";
 import SearchForm from "@/components/orders/search-form";
 import Pagination from "@/components/orders/pagination";
 import Box from "@mui/material/Box";
+import { getSearchParams } from "@/lib/utils/search-params";
+import { getNumberParams } from "@/lib/utils/number-params";
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -11,10 +13,9 @@ interface PageProps {
 
 async function Page({ searchParams }: PageProps) {
   const params = await searchParams;
-  const name = typeof params.name === "string" ? params.name : "";
+  const name = getSearchParams(params.name);
   const sortBy = typeof params.sortBy === "string" ? params.sortBy : "name";
-  const currentPage = typeof params.page === "string" ? params.page : "1";
-  const page = Number(currentPage);
+  const page = getNumberParams(params.page, 1);
   const limit = 5;
   const order = typeof params.order === "string" ? params.order : "asc";
   const { data, total } = await getOrders({
