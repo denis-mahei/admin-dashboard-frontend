@@ -3,6 +3,9 @@ import { getProducts } from "@/lib/api/api.server";
 import Box from "@mui/material/Box";
 import { getSearchParams } from "@/lib/utils/search-params";
 import { getNumberParams } from "@/lib/utils/number-params";
+import SearchForm from "@/components/orders/search-form";
+import Pagination from "@/components/orders/pagination";
+import React from "react";
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -21,10 +24,28 @@ async function Page({ searchParams }: PageProps) {
     limit,
   });
   const totalPages = Math.ceil(totalProducts / limit);
-  console.log(data, totalPages);
+  const pages = Array.from({ length: totalPages }).map((_, i) => i + 1);
   return (
-    <Box sx={{ py: "20px" }}>
+    <Box
+      sx={{
+        pt: { xs: "40px", sm: "50px", md: "75px" },
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+      }}
+    >
+      <Box
+        component="div"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <SearchForm label={"Product Name"} />
+      </Box>
       <ProductsTable products={data} />
+      <Pagination perPages={pages} page={page} />
     </Box>
   );
 }

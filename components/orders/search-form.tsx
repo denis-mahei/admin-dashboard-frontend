@@ -6,11 +6,15 @@ import { Controller, useForm } from "react-hook-form";
 import { TextField } from "@mui/material";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
+type SearchFormProps = {
+  label: string;
+};
+
 type FormValues = {
   name: string;
 };
 
-function SearchForm() {
+function SearchForm({ label }: SearchFormProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -40,7 +44,7 @@ function SearchForm() {
       render={({ field, fieldState }) => (
         <TextField
           {...field}
-          label="User Name"
+          label={label}
           error={!!fieldState.error}
           helperText={fieldState.error?.message}
           sx={{ maxWidth: "224px" }}

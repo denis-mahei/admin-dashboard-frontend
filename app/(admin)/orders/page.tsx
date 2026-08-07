@@ -14,10 +14,10 @@ interface PageProps {
 async function Page({ searchParams }: PageProps) {
   const params = await searchParams;
   const name = getSearchParams(params.name);
-  const sortBy = typeof params.sortBy === "string" ? params.sortBy : "name";
   const page = getNumberParams(params.page, 1);
-  const limit = 5;
+  const sortBy = typeof params.sortBy === "string" ? params.sortBy : "name";
   const order = typeof params.order === "string" ? params.order : "asc";
+  const limit = 5;
   const { data, total } = await getOrders({
     name,
     sortBy,
@@ -39,13 +39,14 @@ async function Page({ searchParams }: PageProps) {
       }}
     >
       <Box
+        component="div"
         sx={{
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
         }}
       >
-        <SearchForm />
+        <SearchForm label={"User Name"} />
       </Box>
 
       <OrdersTable orders={data} />
