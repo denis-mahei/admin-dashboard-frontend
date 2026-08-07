@@ -6,6 +6,7 @@ import { getNumberParams } from "@/lib/utils/number-params";
 import SearchForm from "@/components/orders/search-form";
 import Pagination from "@/components/orders/pagination";
 import React from "react";
+import AddProduct from "@/components/products/add-product";
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -43,6 +44,7 @@ async function Page({ searchParams }: PageProps) {
         }}
       >
         <SearchForm label={"Product Name"} />
+        <AddProduct />
       </Box>
       <ProductsTable products={data} />
       <Pagination perPages={pages} page={page} />
