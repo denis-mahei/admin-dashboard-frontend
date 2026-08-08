@@ -7,8 +7,19 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import SvgIcon from "@/components/svg-icon";
-import { DialogContent, TextField } from "@mui/material";
+import {
+  Button,
+  DialogContent,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { productSchema, ProductValues } from "@/lib/schemas/productSchema";
+import { Categories } from "@/lib/types/definitions";
 
 export interface CreateProductProps {
   open: boolean;
@@ -16,9 +27,32 @@ export interface CreateProductProps {
 }
 
 function CreateProductDialog({ onClose, open }: CreateProductProps) {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm<ProductValues>({
+    resolver: zodResolver(productSchema),
+    defaultValues: {
+      name: "",
+      category: "",
+      stock: 0,
+      supplier: "",
+      price: 0,
+    },
+    mode: "onBlur",
+  });
+  const handleAdd = () => {
+    //
+  };
   return (
-    <Dialog onClose={onClose} open={open} sx={{ borderRadius: 2 }}>
+    <Dialog
+      onClose={onClose}
+      open={open}
+      slotProps={{
+        paper: {
+          sx: {
+            borderRadius: "12px",
+          },
+        },
+      }}
+    >
       <Box sx={{ px: "20px", py: "40px" }}>
         <Typography
           component="h2"
@@ -36,7 +70,13 @@ function CreateProductDialog({ onClose, open }: CreateProductProps) {
         <DialogContent sx={{ p: 0 }}>
           <form onSubmit={handleSubmit((data) => console.log(data))}>
             <Box
-              sx={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2 }}
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 2,
+                pt: 1,
+                mb: "40px",
+              }}
             >
               <Controller
                 name="name"
@@ -47,22 +87,122 @@ function CreateProductDialog({ onClose, open }: CreateProductProps) {
                     label="Product Info"
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
-                    sx={{}}
+                    sx={{
+                      borderRadius: "60px",
+                    }}
                   />
                 )}
               />
               <Controller
                 name="category"
                 control={control}
+                render={({ field }) => (
+                  <FormControl fullWidth>
+                    <InputLabel id="select-label">Category</InputLabel>
+                    <Select
+                      labelId="select-label"
+                      id="select"
+                      value={field.value}
+                      onChange={field.onChange}
+                      label="Category"
+                      sx={{ borderRadius: "60px" }}
+                      MenuProps={{
+                        slotProps: {
+                          paper: {
+                            sx: {
+                              backgroundColor: "primary.main",
+                              color: "#fff",
+                              mt: 1,
+                              borderRadius: "15px",
+                              maxHeight: 140,
+                              overflow: "auto",
+                            },
+                          },
+                        },
+                      }}
+                    >
+                      {Categories.map((category) => (
+                        <MenuItem key={category} value={category}>
+                          {category}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                )}
+              />
+              <Controller
+                name="stock"
+                control={control}
                 render={({ field, fieldState }) => (
                   <TextField
                     {...field}
-                    label="Product Info"
+                    label="Stock"
+                    type="number"
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
                   />
                 )}
               />
+              <Controller
+                name="supplier"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    label="Supplier"
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                  />
+                )}
+              />
+              <Controller
+                name="price"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    type="number"
+                    label="Price"
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                  />
+                )}
+              />
+            </Box>
+            <Box sx={{ display: "flex", gap: 1, py: 1 }}>
+              <Button
+                type="submit"
+                component={"button"}
+                variant="contained"
+                sx={{
+                  borderRadius: "60px",
+                  textTransform: "none",
+                  color: "#fff",
+                  py: "13px",
+                  px: "52px",
+                  maxHeight: "44px",
+                }}
+              >
+                Add
+              </Button>
+              <Button
+                type="button"
+                component={"button"}
+                variant="contained"
+                onClick={onClose}
+                sx={{
+                  backgroundColor: "text.secondary",
+                  borderRadius: "60px",
+                  textTransform: "none",
+                  color: "text.disabled",
+                  py: "13px",
+                  px: "52px",
+                  maxHeight: "44px",
+                  maxWidth: "133px",
+                }}
+              >
+                Cancel
+              </Button>
             </Box>
           </form>
         </DialogContent>

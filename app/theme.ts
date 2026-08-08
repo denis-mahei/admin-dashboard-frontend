@@ -56,6 +56,9 @@ const theme = createTheme({
       styleOverrides: {
         root: ({ theme }) => ({
           height: 44,
+          ".MuiOutlinedInput-notchedOutline": {
+            borderColor: theme.palette.divider,
+          },
           "&:hover .MuiOutlinedInput-notchedOutline": {
             borderColor: theme.palette.primary.main,
           },
@@ -69,7 +72,7 @@ const theme = createTheme({
     MuiTextField: {
       defaultProps: {
         variant: "outlined",
-        size: "small",
+        size: "medium",
       },
       styleOverrides: {
         root: {
@@ -93,6 +96,7 @@ const theme = createTheme({
       styleOverrides: {
         root: ({ theme }) => ({
           color: theme.palette.text.disabled,
+          fontSize: "12px",
           "&.Mui-focused": {
             color: theme.palette.primary.main,
           },

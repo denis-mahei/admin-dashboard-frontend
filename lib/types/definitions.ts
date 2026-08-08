@@ -37,6 +37,9 @@ export interface Supplier {
   status: "Active" | "Deactive";
 }
 
+export const Categories = ["Hand", "Medicine", "Leg", "Heart", "Head"] as const;
+export type Category = (typeof Categories)[number];
+
 export interface Product {
   id: number;
   photo: string;
@@ -44,5 +47,5 @@ export interface Product {
   stock: number;
   price: number;
   supplier: Supplier;
-  category: "Hand" | "Medicine" | "Leg" | "Heart" | "Head";
+  category: Category;
 }
