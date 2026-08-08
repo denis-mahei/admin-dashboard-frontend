@@ -18,7 +18,11 @@ import {
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { productSchema, ProductValues } from "@/lib/schemas/productSchema";
+import {
+  ProductOutput,
+  productSchema,
+  ProductValues,
+} from "@/lib/schemas/productSchema";
 import { Categories } from "@/lib/types/definitions";
 
 export interface CreateProductProps {
@@ -27,7 +31,7 @@ export interface CreateProductProps {
 }
 
 function CreateProductDialog({ onClose, open }: CreateProductProps) {
-  const { control, handleSubmit } = useForm<ProductValues>({
+  const { control, handleSubmit } = useForm({
     resolver: zodResolver(productSchema),
     defaultValues: {
       name: "",
@@ -38,7 +42,7 @@ function CreateProductDialog({ onClose, open }: CreateProductProps) {
     },
     mode: "onBlur",
   });
-  const handleAdd = () => {
+  const handleAdd = (data: ProductValues) => {
     //
   };
   return (
