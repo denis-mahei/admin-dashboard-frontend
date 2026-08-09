@@ -49,3 +49,12 @@ export interface Product {
   supplier: Supplier;
   category: Category;
 }
+
+export interface ProductRequest {
+  name: string;
+  stock: number;
+  price: number;
+  supplierId: number;
+  category: Category;
+  photo?: string;
+}

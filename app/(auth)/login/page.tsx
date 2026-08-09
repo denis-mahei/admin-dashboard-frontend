@@ -100,6 +100,7 @@ function Page() {
               backgroundColor: "custom.accent",
               borderRadius: 12,
               height: 44,
+              color: "#fff",
             }}
           >
             sign in

@@ -3,6 +3,7 @@
 import axios from "axios";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { Product, ProductRequest } from "@/lib/types/definitions";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -42,18 +43,24 @@ export const getProducts = async ({
   }
 };
 
-export const addNewProduct = async (payload) => {
+export const addNewProduct = async (payload: ProductRequest) => {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
   if (!token) {
     return NextResponse.json({ message: "Unauthorized" });
   }
-  const { data } = await api.post(`/products`, payload, {
-    headers: {
-      Cookie: `access_token=${token}`,
-    },
-  });
-  return data;
+  console.log("Payload:", payload);
+  try {
+    const { data } = await api.post(`/products`, payload, {
+      headers: { Cookie: `access_token=${token}` },
+    });
+    console.log("SUCCESS:", data);
+    return data;
+  } catch (error) {
+    console.log("ERROR STATUS:", error.response?.status);
+    console.log("ERROR MESSAGE:", error.response?.data);
+    throw error;
+  }
 };
 
 export const getSuppliers = async () => {

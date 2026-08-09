@@ -18,12 +18,11 @@ import {
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  ProductOutput,
-  productSchema,
-  ProductValues,
-} from "@/lib/schemas/productSchema";
+import { productSchema } from "@/lib/schemas/productSchema";
 import { Categories } from "@/lib/types/definitions";
+import { useMutation } from "@tanstack/react-query";
+import { addNewProduct } from "@/lib/api/api.server";
+import { useRouter } from "next/navigation";
 
 export interface CreateProductProps {
   open: boolean;
@@ -31,20 +30,26 @@ export interface CreateProductProps {
 }
 
 function CreateProductDialog({ onClose, open }: CreateProductProps) {
+  const router = useRouter();
   const { control, handleSubmit } = useForm({
     resolver: zodResolver(productSchema),
     defaultValues: {
       name: "",
-      category: "",
+      category: Categories[0],
       stock: 0,
       supplier: "",
       price: 0,
     },
     mode: "onBlur",
   });
-  const handleAdd = (data: ProductValues) => {
-    //
-  };
+
+  const createMutation = useMutation({
+    mutationFn: addNewProduct,
+    onSuccess: () => {
+      onClose();
+      router.refresh();
+    },
+  });
   return (
     <Dialog
       onClose={onClose}
@@ -72,7 +77,7 @@ function CreateProductDialog({ onClose, open }: CreateProductProps) {
           <SvgIcon name="close" width="24" height="24" />
         </IconButton>
         <DialogContent sx={{ p: 0 }}>
-          <form onSubmit={handleSubmit((data) => console.log(data))}>
+          <form onSubmit={handleSubmit(createMutation.mutate)}>
             <Box
               sx={{
                 display: "grid",
