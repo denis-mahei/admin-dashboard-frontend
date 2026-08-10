@@ -54,11 +54,40 @@ export const addNewProduct = async (payload: ProductRequest) => {
     const { data } = await api.post(`/products`, payload, {
       headers: { Cookie: `access_token=${token}` },
     });
-    console.log("SUCCESS:", data);
     return data;
   } catch (error) {
-    console.log("ERROR STATUS:", error.response?.status);
-    console.log("ERROR MESSAGE:", error.response?.data);
+    throw error;
+  }
+};
+
+export const updateProduct = async (id: number, payload: ProductRequest) => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
+  if (!token) {
+    return NextResponse.json({ message: "Unauthorized" });
+  }
+
+  const { data } = await api.patch(`/products/${id}`, payload, {
+    headers: {
+      Cookie: `access_token=${token}`,
+    },
+  });
+  return data;
+};
+
+export const deleteProduct = async (id: number) => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
+  if (!token) {
+    return NextResponse.json({ message: "Unauthorized" });
+  }
+  try {
+    await api.delete(`/products/${id}`, {
+      headers: {
+        Cookie: `access_token=${token}`,
+      },
+    });
+  } catch (error) {
     throw error;
   }
 };

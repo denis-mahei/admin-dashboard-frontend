@@ -1,12 +1,11 @@
-import ProductsTable from "@/components/products/products-table";
-import { getProducts } from "@/lib/api/api.server";
-import Box from "@mui/material/Box";
-import { getSearchParams } from "@/lib/utils/search-params";
+import { getProducts, getSuppliers } from "@/lib/api/api.server";
 import { getNumberParams } from "@/lib/utils/number-params";
+import { getSearchParams } from "@/lib/utils/search-params";
+import ProductsTable from "@/components/products/products-table";
+import Box from "@mui/material/Box";
 import SearchForm from "@/components/orders/search-form";
 import Pagination from "@/components/orders/pagination";
-import React from "react";
-import AddProduct from "@/components/products/add-product";
+import OpenDialog from "@/components/open-dialog";
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -18,14 +17,18 @@ async function Page({ searchParams }: PageProps) {
   const category = getSearchParams(params.category);
   const page = getNumberParams(params.page, 1);
   const limit = 5;
-  const { data, totalProducts } = await getProducts({
-    name,
-    category,
-    page,
-    limit,
-  });
+  const [{ data, totalProducts }, suppliers] = await Promise.all([
+    getProducts({
+      name,
+      category,
+      page,
+      limit,
+    }),
+    getSuppliers(),
+  ]);
   const totalPages = Math.ceil(totalProducts / limit);
   const pages = Array.from({ length: totalPages }).map((_, i) => i + 1);
+
   return (
     <Box
       sx={{
@@ -44,9 +47,9 @@ async function Page({ searchParams }: PageProps) {
         }}
       >
         <SearchForm label={"Product Name"} />
-        <AddProduct />
+        <OpenDialog label={"Add new product"} suppliers={suppliers} />
       </Box>
-      <ProductsTable products={data} />
+      <ProductsTable products={data} suppliers={suppliers} />
       <Pagination perPages={pages} page={page} />
     </Box>
   );

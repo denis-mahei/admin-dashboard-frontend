@@ -1,32 +1,42 @@
 "use client";
 
 import * as React from "react";
+import { useState } from "react";
 import TableWrapper from "@/components/table-wrapper";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
-import { Product } from "@/lib/types/definitions";
+import { Product, Supplier } from "@/lib/types/definitions";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
-import { useState } from "react";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { alpha } from "@mui/material";
+import EditProduct from "@/components/products/edit-product";
+import { useMutation } from "@tanstack/react-query";
+import { deleteProduct } from "@/lib/api/api.server";
+import IconButton from "@mui/material/IconButton";
+import { useRouter } from "next/navigation";
 
 type ProductsTableProps = {
   products: Product[];
+  suppliers: Supplier[];
 };
 
-function ProductsTable({ products }: ProductsTableProps) {
-  const [openDialog, setOpenDialog] = useState(false);
-
-  const handleOpen = () => {
-    setOpenDialog(true);
-  };
+function ProductsTable({ suppliers, products }: ProductsTableProps) {
+  const router = useRouter();
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
 
   const handleClose = () => {
-    setOpenDialog(false);
+    setEditingProduct(null);
   };
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: () => {
+      router.refresh();
+    },
+  });
+
   return (
     <>
       <TableWrapper title={"All Products"} width={960}>
@@ -52,9 +62,9 @@ function ProductsTable({ products }: ProductsTableProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((row) => (
+          {products.map((product) => (
             <TableRow
-              key={row.id}
+              key={product.id}
               sx={{
                 "&:last-child td, &:last-child th": { border: 0 },
                 "& .MuiTableCell-root:not(:last-child)": {
@@ -67,21 +77,48 @@ function ProductsTable({ products }: ProductsTableProps) {
                 },
               }}
             >
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.category}</TableCell>
-              <TableCell>{row.stock}</TableCell>
-              <TableCell>{row.supplier.company}</TableCell>
-              <TableCell>{row.price}</TableCell>
-              <TableCell>
-                <Button
-                  sx={{ borderRadius: 100, p: 1 }}
-                  onClick={() => console.log(row.id)}
+              <TableCell>{product.name}</TableCell>
+              <TableCell>{product.category}</TableCell>
+              <TableCell>{product.stock}</TableCell>
+              <TableCell>{product.supplier.company}</TableCell>
+              <TableCell>{product.price}</TableCell>
+              <TableCell sx={{ maxWidth: "40px", textAlign: "center" }}>
+                <IconButton
+                  sx={{
+                    border: "1px solid",
+                    borderColor: alpha("#59B17A", 0.5),
+                    mr: 1,
+                  }}
+                  onClick={() => setEditingProduct(product)}
                 >
-                  <EditIcon sx={{ color: "primary", fontSize: "16px" }} />
-                </Button>
+                  <EditIcon sx={{ color: "primary.main", fontSize: "16px" }} />
+                </IconButton>
+                <IconButton
+                  sx={{
+                    border: "1px solid",
+                    borderColor: alpha("#E85050", 0.5),
+                    fontSize: "16px",
+                  }}
+                  onClick={() => {
+                    if (confirm("You sure you want to delete this product?"))
+                      deleteMutation.mutate(product.id);
+                  }}
+                >
+                  <DeleteForeverIcon
+                    sx={{ color: "error.main", fontSize: "16px" }}
+                  />
+                </IconButton>
               </TableCell>
             </TableRow>
           ))}
+          {editingProduct && (
+            <EditProduct
+              product={editingProduct}
+              open={!!editingProduct}
+              onClose={handleClose}
+              suppliers={suppliers}
+            />
+          )}
         </TableBody>
       </TableWrapper>
     </>
