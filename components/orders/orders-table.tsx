@@ -7,6 +7,7 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 type OrdersTableProps = {
   orders: Order[];
@@ -73,7 +74,16 @@ function OrdersTable({ orders }: OrdersTableProps) {
                 paddingLeft: 0,
               }}
             >
-              <Image src={row.photo} alt={row.name} width={36} height={36} />
+              <Box
+                sx={{
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                  width: "36px",
+                  height: "36px",
+                }}
+              >
+                <Image src={row.photo} alt={row.name} width={36} height={36} />
+              </Box>
               {row.name}
             </TableCell>
             <TableCell>{row.address.split(",")[0]}</TableCell>
