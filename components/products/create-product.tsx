@@ -19,15 +19,14 @@ export interface CreateProductProps {
   suppliers: Supplier[];
 }
 
-const defaultValues = {
-  name: "",
-  category: Categories[0],
-  stock: 0,
-  supplierId: 31,
-  price: 0,
-};
-
 function CreateProduct({ onClose, open, suppliers }: CreateProductProps) {
+  const defaultValues = {
+    name: "",
+    category: Categories[0],
+    stock: 0,
+    supplierId: suppliers[0]?.id,
+    price: 0,
+  };
   const router = useRouter();
 
   const createMutation = useMutation({

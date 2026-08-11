@@ -97,12 +97,11 @@ function ProductForm({
                   },
                 }}
               >
-                {Categories.length > 0 &&
-                  Categories.map((category) => (
-                    <MenuItem key={category} value={category}>
-                      {category}
-                    </MenuItem>
-                  ))}
+                {Categories.map((category) => (
+                  <MenuItem key={category} value={category}>
+                    {category}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           )}
@@ -154,12 +153,11 @@ function ProductForm({
                   },
                 }}
               >
-                {suppliers.length > 0 &&
-                  suppliers.map((supplier) => (
-                    <MenuItem key={supplier.id} value={supplier.id}>
-                      {supplier.company}
-                    </MenuItem>
-                  ))}
+                {suppliers.map((supplier) => (
+                  <MenuItem key={supplier.id} value={supplier.id}>
+                    {supplier.company}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           )}
