@@ -17,6 +17,7 @@ import { deleteProduct } from "@/lib/api/api.server";
 import IconButton from "@mui/material/IconButton";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
+import ConfirmDialog from "@/components/confirm-dialog";
 
 type ProductsTableProps = {
   products: Product[];
@@ -26,9 +27,20 @@ type ProductsTableProps = {
 function ProductsTable({ suppliers, products }: ProductsTableProps) {
   const router = useRouter();
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [deletingProduct, setDeletingProduct] = useState<Product | null>(null);
 
   const handleClose = () => {
     setEditingProduct(null);
+  };
+
+  const handleCancel = () => {
+    setDeletingProduct(null);
+  };
+
+  const handleConfirmDelete = () => {
+    if (!deletingProduct) return;
+    deleteMutation.mutate(deletingProduct.id);
+    setDeletingProduct(null);
   };
 
   const deleteMutation = useMutation({
@@ -38,7 +50,7 @@ function ProductsTable({ suppliers, products }: ProductsTableProps) {
       router.refresh();
     },
     onError: () => {
-      enqueueSnackbar("Failed to delete a product with error", {
+      enqueueSnackbar("Failed to delete a product", {
         variant: "error",
       });
     },
@@ -107,8 +119,7 @@ function ProductsTable({ suppliers, products }: ProductsTableProps) {
                     fontSize: "16px",
                   }}
                   onClick={() => {
-                    if (confirm("You sure you want to delete this product?"))
-                      deleteMutation.mutate(product.id);
+                    setDeletingProduct(product);
                   }}
                 >
                   <DeleteForeverIcon
@@ -126,6 +137,14 @@ function ProductsTable({ suppliers, products }: ProductsTableProps) {
           open={!!editingProduct}
           onClose={handleClose}
           suppliers={suppliers}
+        />
+      )}
+      {deleteMutation && (
+        <ConfirmDialog
+          title={"Delete product?"}
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancel}
+          open={!!deletingProduct}
         />
       )}
     </>
