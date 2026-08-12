@@ -4,6 +4,7 @@ import * as React from "react";
 import {
   Button,
   FormControl,
+  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
@@ -37,7 +38,11 @@ function ProductForm({
   defaultValues,
   open,
 }: ProductFormProps) {
-  const { control, handleSubmit } = useForm({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(productSchema),
     defaultValues,
     mode: "onBlur",
@@ -72,10 +77,11 @@ function ProductForm({
         <Controller
           name="category"
           control={control}
-          render={({ field }) => (
-            <FormControl fullWidth>
+          render={({ field, fieldState }) => (
+            <FormControl fullWidth error={!!fieldState.error}>
               <InputLabel id="select-label">Category</InputLabel>
               <Select
+                error={!!fieldState.error}
                 labelId="select-label"
                 id="select"
                 value={field.value}
@@ -103,6 +109,9 @@ function ProductForm({
                   </MenuItem>
                 ))}
               </Select>
+              <FormHelperText>
+                {fieldState.error?.message ?? " "}
+              </FormHelperText>
             </FormControl>
           )}
         />
@@ -128,8 +137,8 @@ function ProductForm({
         <Controller
           name="supplierId"
           control={control}
-          render={({ field }) => (
-            <FormControl fullWidth>
+          render={({ field, fieldState }) => (
+            <FormControl fullWidth error={!!fieldState.error}>
               <InputLabel id="select-company-label">Suppliers</InputLabel>
               <Select
                 labelId="select-company-label"
@@ -138,6 +147,7 @@ function ProductForm({
                 onChange={field.onChange}
                 label="Suppliers"
                 sx={{ borderRadius: "60px" }}
+                error={!!fieldState.error}
                 MenuProps={{
                   slotProps: {
                     paper: {
@@ -159,6 +169,7 @@ function ProductForm({
                   </MenuItem>
                 ))}
               </Select>
+              <FormHelperText>{fieldState.error?.message}</FormHelperText>
             </FormControl>
           )}
         />

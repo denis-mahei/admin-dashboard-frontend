@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { updateProduct } from "@/lib/api/api.server";
 import { Product, ProductRequest, Supplier } from "@/lib/types/definitions";
+import { enqueueSnackbar } from "notistack";
 
 type EditProductProps = {
   open: boolean;
@@ -39,8 +40,14 @@ function EditProduct({
   const editMutation = useMutation({
     mutationFn: (payload: ProductRequest) => updateProduct(product.id, payload),
     onSuccess: () => {
+      enqueueSnackbar("Product updated successfully.", { variant: "success" });
       onClose();
       router.refresh();
+    },
+    onError: () => {
+      enqueueSnackbar("Failed to update product. Try again.", {
+        variant: "error",
+      });
     },
   });
   return (

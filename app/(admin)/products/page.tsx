@@ -5,7 +5,7 @@ import ProductsTable from "@/components/products/products-table";
 import Box from "@mui/material/Box";
 import SearchForm from "@/components/orders/search-form";
 import Pagination from "@/components/orders/pagination";
-import OpenDialog from "@/components/open-dialog";
+import AddProductTrigger from "@/components/products/add-product-trigger";
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -47,7 +47,7 @@ async function Page({ searchParams }: PageProps) {
         }}
       >
         <SearchForm label={"Product Name"} />
-        <OpenDialog label={"Add new product"} suppliers={suppliers} />
+        <AddProductTrigger suppliers={suppliers} />
       </Box>
       <ProductsTable products={data} suppliers={suppliers} />
       <Pagination perPages={pages} page={page} />

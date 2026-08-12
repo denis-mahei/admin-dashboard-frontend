@@ -16,6 +16,7 @@ import { useMutation } from "@tanstack/react-query";
 import { deleteProduct } from "@/lib/api/api.server";
 import IconButton from "@mui/material/IconButton";
 import { useRouter } from "next/navigation";
+import { enqueueSnackbar } from "notistack";
 
 type ProductsTableProps = {
   products: Product[];
@@ -33,7 +34,13 @@ function ProductsTable({ suppliers, products }: ProductsTableProps) {
   const deleteMutation = useMutation({
     mutationFn: deleteProduct,
     onSuccess: () => {
+      enqueueSnackbar("Product deleted successfully.", { variant: "success" });
       router.refresh();
+    },
+    onError: () => {
+      enqueueSnackbar("Failed to delete a product with error", {
+        variant: "error",
+      });
     },
   });
 
@@ -111,16 +118,16 @@ function ProductsTable({ suppliers, products }: ProductsTableProps) {
               </TableCell>
             </TableRow>
           ))}
-          {editingProduct && (
-            <EditProduct
-              product={editingProduct}
-              open={!!editingProduct}
-              onClose={handleClose}
-              suppliers={suppliers}
-            />
-          )}
         </TableBody>
       </TableWrapper>
+      {editingProduct && (
+        <EditProduct
+          product={editingProduct}
+          open={!!editingProduct}
+          onClose={handleClose}
+          suppliers={suppliers}
+        />
+      )}
     </>
   );
 }

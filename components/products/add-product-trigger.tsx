@@ -10,10 +10,9 @@ import CreateProduct from "@/components/products/create-product";
 
 type OpenDialogProps = {
   suppliers: Supplier[];
-  label: string;
 };
 
-function OpenDialog({ suppliers, label }: OpenDialogProps) {
+function AddProductTrigger({ suppliers }: OpenDialogProps) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -49,7 +48,7 @@ function OpenDialog({ suppliers, label }: OpenDialogProps) {
             fontWeight: 500,
           }}
         >
-          {label}
+          Add new product
         </Typography>
       </Box>
       <CreateProduct open={open} onClose={handleClose} suppliers={suppliers} />
@@ -57,4 +56,4 @@ function OpenDialog({ suppliers, label }: OpenDialogProps) {
   );
 }
 
-export default OpenDialog;
+export default AddProductTrigger;

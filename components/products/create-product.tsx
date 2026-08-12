@@ -12,6 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import { addNewProduct } from "@/lib/api/api.server";
 import { useRouter } from "next/navigation";
 import ProductForm from "@/components/products/product-form";
+import { enqueueSnackbar } from "notistack";
 
 export interface CreateProductProps {
   open: boolean;
@@ -32,6 +33,9 @@ function CreateProduct({ onClose, open, suppliers }: CreateProductProps) {
   const createMutation = useMutation({
     mutationFn: addNewProduct,
     onSuccess: () => {
+      enqueueSnackbar("Product was added successfully.", {
+        variant: "success",
+      });
       onClose();
       router.refresh();
     },
