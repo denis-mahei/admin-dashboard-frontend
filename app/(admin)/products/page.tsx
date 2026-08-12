@@ -1,4 +1,4 @@
-import { getProducts, getSuppliers } from "@/lib/api/api.server";
+import { getProducts, getSupplierLookUp } from "@/lib/api/api.server";
 import { getNumberParams } from "@/lib/utils/number-params";
 import { getSearchParams } from "@/lib/utils/search-params";
 import ProductsTable from "@/components/products/products-table";
@@ -24,7 +24,7 @@ async function Page({ searchParams }: PageProps) {
       page,
       limit,
     }),
-    getSuppliers(),
+    getSupplierLookUp(),
   ]);
   const totalPages = Math.ceil(totalProducts / limit);
   const pages = Array.from({ length: totalPages }).map((_, i) => i + 1);

@@ -2,8 +2,8 @@
 
 import axios from "axios";
 import { cookies } from "next/headers";
-import { NextResponse } from "next/server";
 import { ProductRequest } from "@/lib/types/definitions";
+import { handleApiError } from "@/lib/utils/errorHandler";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -95,7 +95,37 @@ export const deleteProduct = async (id: number) => {
   }
 };
 
-export const getSuppliers = async () => {
+export const getSupplierLookUp = async () => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
+  if (!token) {
+    throw new Error("Unauthorized");
+  }
+  try {
+    const { data } = await api.get("/suppliers/lookup", {
+      headers: {
+        Cookie: `access_token=${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+export const getSuppliers = async ({
+  name,
+  page = 1,
+  limit = 5,
+  sortBy = "name",
+  order = "asc",
+}: {
+  name: string;
+  page: number;
+  limit: number;
+  sortBy?: string;
+  order?: string;
+}) => {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
   if (!token) {
@@ -106,10 +136,17 @@ export const getSuppliers = async () => {
       headers: {
         Cookie: `access_token=${token}`,
       },
+      params: {
+        name,
+        page,
+        limit,
+        sortBy,
+        order,
+      },
     });
     return data;
   } catch (error) {
-    throw new Error("Failed to fetch suppliers");
+    handleApiError(error);
   }
 };
 

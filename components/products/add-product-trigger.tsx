@@ -12,7 +12,7 @@ type OpenDialogProps = {
   suppliers: Supplier[];
 };
 
-function AddProductTrigger({ suppliers }: OpenDialogProps) {
+function OpenDialog({ suppliers }: OpenDialogProps) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -56,4 +56,4 @@ function AddProductTrigger({ suppliers }: OpenDialogProps) {
   );
 }
 
-export default AddProductTrigger;
+export default OpenDialog;
