@@ -36,70 +36,66 @@ function IncomeExpenses({ expensesData }: IncomeExpensesProps) {
   const fiveItems = expensesData.slice(0, 5);
   return (
     <TableWrapper title={"income/expenses"}>
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow
+      <TableHead>
+        <TableRow
+          sx={{
+            "& .MuiTableCell-root": {
+              color: "text.disabled",
+              fontWeight: "normal",
+              paddingLeft: 0,
+            },
+          }}
+        >
+          <TableCell colSpan={3}>Today</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {fiveItems.map((row) => (
+          <TableRow
+            key={row.id}
+            sx={{
+              "&:last-child td, &:last-child th": { border: 0 },
+              "& .MuiTableCell-root": {
+                height: 69,
+                fontWeight: 500,
+                fontSize: { xs: "12px", sm: "14px", md: "16px" },
+              },
+            }}
+          >
+            <TableCell
               sx={{
-                "& .MuiTableCell-root": {
-                  color: "text.disabled",
-                  fontWeight: "normal",
-                  paddingLeft: 0,
-                },
+                paddingLeft: 0,
               }}
             >
-              <TableCell colSpan={3}>Today</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {fiveItems.map((row) => (
-              <TableRow
-                key={row.id}
+              <Typography
                 sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                  "& .MuiTableCell-root": {
-                    height: 69,
-                    fontWeight: 500,
-                    fontSize: { xs: "12px", sm: "14px", md: "16px" },
-                  },
+                  fontSize: "14px",
+                  fontWeight: 500,
+                  py: "4px",
+                  px: "13px",
+                  borderRadius: "40px",
+                  backgroundColor: typeStyles[row.type].bg,
+                  textAlign: "center",
+                  color: typeStyles[row.type].color,
                 }}
               >
-                <TableCell
-                  sx={{
-                    paddingLeft: 0,
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: 500,
-                      py: "4px",
-                      px: "13px",
-                      borderRadius: "40px",
-                      backgroundColor: typeStyles[row.type].bg,
-                      textAlign: "center",
-                      color: typeStyles[row.type].color,
-                    }}
-                  >
-                    {row.type}
-                  </Typography>
-                </TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell
-                  align={"right"}
-                  sx={{
-                    paddingRight: 0,
-                    textDecoration: typeStyles[row.type].line,
-                    color: typeStyles[row.type].color,
-                  }}
-                >
-                  {row.amount}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                {row.type}
+              </Typography>
+            </TableCell>
+            <TableCell>{row.name}</TableCell>
+            <TableCell
+              align={"right"}
+              sx={{
+                paddingRight: 0,
+                textDecoration: typeStyles[row.type].line,
+                color: typeStyles[row.type].color,
+              }}
+            >
+              {row.amount}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
     </TableWrapper>
   );
 }

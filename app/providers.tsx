@@ -11,7 +11,11 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
-    <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
+    <SnackbarProvider
+      maxSnack={3}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      autoHideDuration={3000}
+    >
       <QueryClientProvider client={queryClient}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>{children}</ThemeProvider>

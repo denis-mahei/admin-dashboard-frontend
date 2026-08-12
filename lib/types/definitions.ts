@@ -26,3 +26,35 @@ export interface Order {
   status: "Confirmed" | "Completed" | "Pending" | "Shipped" | "Processing";
   order_date: Date;
 }
+
+export interface Supplier {
+  id: number;
+  name: string;
+  address: string;
+  company: string;
+  date: Date;
+  amount: number;
+  status: "Active" | "Deactive";
+}
+
+export const Categories = ["Hand", "Medicine", "Leg", "Heart", "Head"] as const;
+export type Category = (typeof Categories)[number];
+
+export interface Product {
+  id: number;
+  photo: string;
+  name: string;
+  stock: number;
+  price: number;
+  supplier: Supplier;
+  category: Category;
+}
+
+export interface ProductRequest {
+  name: string;
+  stock: number;
+  price: number;
+  supplierId: number;
+  category: Category;
+  photo?: string;
+}

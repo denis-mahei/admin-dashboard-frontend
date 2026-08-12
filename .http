@@ -28,3 +28,6 @@ GET {{host}}/dashboard
 
 ### get orders:
 GET {{host}}/orders
+
+### get suppliers:
+GET {{host}}/suppliers
