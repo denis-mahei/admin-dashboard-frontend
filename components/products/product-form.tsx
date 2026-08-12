@@ -21,7 +21,7 @@ type ProductFormProps = {
   onSubmit: (data: ProductValues) => void;
   suppliers: Supplier[];
   defaultValues: ProductValues;
-  open?: boolean;
+  isEditing?: boolean;
 };
 
 const slotProps = {
@@ -36,13 +36,9 @@ function ProductForm({
   onClose,
   suppliers,
   defaultValues,
-  open,
+  isEditing,
 }: ProductFormProps) {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { control, handleSubmit } = useForm({
     resolver: zodResolver(productSchema),
     defaultValues,
     mode: "onBlur",
@@ -202,7 +198,7 @@ function ProductForm({
             maxHeight: "44px",
           }}
         >
-          {open ? "Save" : "Add"}
+          {isEditing ? "Save" : "Add"}
         </Button>
         <Button
           type="button"

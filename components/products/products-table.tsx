@@ -11,13 +11,13 @@ import { Product, Supplier } from "@/lib/types/definitions";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { alpha } from "@mui/material";
-import EditProduct from "@/components/products/edit-product";
 import { useMutation } from "@tanstack/react-query";
 import { deleteProduct } from "@/lib/api/api.server";
 import IconButton from "@mui/material/IconButton";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import ConfirmDialog from "@/components/confirm-dialog";
+import ProductDialog from "@/components/products/product-dialog";
 
 type ProductsTableProps = {
   products: Product[];
@@ -132,7 +132,7 @@ function ProductsTable({ suppliers, products }: ProductsTableProps) {
         </TableBody>
       </TableWrapper>
       {editingProduct && (
-        <EditProduct
+        <ProductDialog
           product={editingProduct}
           open={!!editingProduct}
           onClose={handleClose}

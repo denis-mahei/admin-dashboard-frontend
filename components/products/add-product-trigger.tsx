@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import SvgIcon from "@/components/svg-icon";
 import Typography from "@mui/material/Typography";
 import { Supplier } from "@/lib/types/definitions";
-import CreateProduct from "@/components/products/create-product";
+import ProductDialog from "@/components/products/product-dialog";
 
 type OpenDialogProps = {
   suppliers: Supplier[];
@@ -51,7 +51,7 @@ function AddProductTrigger({ suppliers }: OpenDialogProps) {
           Add new product
         </Typography>
       </Box>
-      <CreateProduct open={open} onClose={handleClose} suppliers={suppliers} />
+      <ProductDialog open={open} onClose={handleClose} suppliers={suppliers} />
     </>
   );
 }
