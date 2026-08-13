@@ -4,10 +4,9 @@ import { getSuppliers } from "@/lib/api/api.server";
 import { getNumberParams } from "@/lib/utils/number-params";
 import Box from "@mui/material/Box";
 import SearchForm from "@/components/orders/search-form";
-import AddProductTrigger from "@/components/products/add-product-trigger";
-import ProductsTable from "@/components/products/products-table";
 import Pagination from "@/components/orders/pagination";
 import SuppliersTable from "@/components/suppliers/suppliers-table";
+import AddSupplierTrigger from "@/components/suppliers/add-supplier-trigger";
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -43,7 +42,7 @@ async function Page({ searchParams }: PageProps) {
         }}
       >
         <SearchForm label={"Supplier Name"} />
-        <AddProductTrigger suppliers={suppliers} />
+        <AddSupplierTrigger suppliers={suppliers} />
       </Box>
       <SuppliersTable suppliers={suppliers} />
       <Pagination perPages={pages} page={page} />

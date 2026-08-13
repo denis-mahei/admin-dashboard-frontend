@@ -2,6 +2,7 @@
 
 import { createTheme } from "@mui/material/styles";
 import { alpha } from "@mui/material";
+import type {} from "@mui/x-date-pickers/themeAugmentation";
 
 const theme = createTheme({
   typography: {
@@ -30,7 +31,6 @@ const theme = createTheme({
       disabled: "#dcdddf",
     },
   },
-
   components: {
     MuiAppBar: {
       styleOverrides: {
@@ -40,6 +40,30 @@ const theme = createTheme({
           borderBottom: `1px solid #e0e0e0`,
           paddingLeft: 0,
         },
+      },
+    },
+    MuiPickersInputBase: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          "& fieldset": {
+            borderRadius: "60px",
+            border: "1px solid",
+            borderColor: theme.palette.divider,
+          },
+          "& .MuiPickersInputBase-sectionsContainer:hover ~ fieldset": {
+            borderColor: theme.palette.primary.main,
+          },
+          "&.Mui-focused .MuiPickersOutlinedInput-notchedOutline": {
+            borderWidth: "1px !important",
+            borderColor: theme.palette.primary.light,
+          },
+          "& .MuiPickersInputBase-sectionsContainer": {
+            padding: "10px 12px",
+          },
+          "& .MuiSvgIcon-root": {
+            color: theme.palette.primary.main,
+          },
+        }),
       },
     },
     MuiTableContainer: {

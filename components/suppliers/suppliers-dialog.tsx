@@ -1,58 +1,53 @@
 import * as React from "react";
-import {
-  Categories,
-  Product,
-  ProductRequest,
-  Supplier,
-} from "@/lib/types/definitions";
-import { useMutation } from "@tanstack/react-query";
-import { addNewProduct, updateProduct } from "@/lib/api/api.server";
-import { enqueueSnackbar } from "notistack";
-import { useRouter } from "next/navigation";
 import Dialog from "@mui/material/Dialog";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import SvgIcon from "@/components/svg-icon";
 import DialogContent from "@mui/material/DialogContent";
-import ProductForm from "@/components/products/product-form";
+import { STATUS, Supplier } from "@/lib/types/definitions";
+import SupplierForm from "@/components/suppliers/supplier-form";
+import { useMutation } from "@tanstack/react-query";
+import { SupplierPayload } from "@/lib/schemas/supplierSchema";
+import { addNewSupplier, updateSupplier } from "@/lib/api/api.server";
+import { enqueueSnackbar } from "notistack";
+import { useRouter } from "next/navigation";
+import dayjs from "dayjs";
 
-type ProductDialogProps = {
+type SupplierDialogProps = {
   open: boolean;
   onClose: () => void;
-  suppliers: Supplier[];
-  product?: Product;
+  supplier?: Supplier;
 };
 
-function ProductDialog({
-  open,
-  onClose,
-  product,
-  suppliers,
-}: ProductDialogProps) {
+function SuppliersDialog({ open, onClose, supplier }: SupplierDialogProps) {
   const router = useRouter();
-  const isEditing = !!product;
-  const defaultValues = product
+  const isEditing = !!supplier;
+  const defaultValues = supplier
     ? {
-        name: product.name,
-        category: product.category,
-        stock: product.stock,
-        supplierId: product.supplier.id,
-        price: product.price,
+        name: supplier.name,
+        address: supplier.address,
+        company: supplier.company,
+        date: dayjs(supplier.date),
+        amount: Number(supplier.amount),
+        status: supplier.status,
       }
     : {
         name: "",
-        category: Categories[0],
-        stock: 0,
-        supplierId: suppliers[0]?.id,
-        price: 0,
+        address: "",
+        company: "",
+        date: dayjs(),
+        amount: 0,
+        status: STATUS[0],
       };
 
   const mutation = useMutation({
-    mutationFn: (payload: ProductRequest) =>
-      isEditing ? updateProduct(product.id, payload) : addNewProduct(payload),
+    mutationFn: (payload: SupplierPayload) =>
+      isEditing
+        ? updateSupplier(supplier?.id, payload)
+        : addNewSupplier(payload),
     onSuccess: () => {
-      enqueueSnackbar(isEditing ? "Product updated." : "Product added.", {
+      enqueueSnackbar(isEditing ? "Supplier updated." : "Supplier added.", {
         variant: "success",
       });
       onClose();
@@ -60,11 +55,12 @@ function ProductDialog({
     },
     onError: () => {
       enqueueSnackbar(
-        isEditing ? "Failed to update product." : "Failed to add product.",
+        isEditing ? "Failed to update supplier." : "Failed to add supplier.",
         { variant: "error" },
       );
     },
   });
+
   return (
     <Dialog
       onClose={onClose}
@@ -80,7 +76,7 @@ function ProductDialog({
           component="h2"
           sx={{ fontSize: 24, fontWeight: "bold", mb: "40px" }}
         >
-          {isEditing ? "Edit product" : "Add a new product"}
+          {isEditing ? "Edit supplier" : "Add a new supplier"}
         </Typography>
         <IconButton
           component="button"
@@ -90,10 +86,9 @@ function ProductDialog({
           <SvgIcon name="close" width="24" height="24" />
         </IconButton>
         <DialogContent sx={{ p: 0 }}>
-          <ProductForm
+          <SupplierForm
             onSubmit={mutation.mutate}
             onClose={onClose}
-            suppliers={suppliers}
             defaultValues={defaultValues}
             isEditing={isEditing}
           />
@@ -102,4 +97,4 @@ function ProductDialog({
     </Dialog>
   );
 }
-export default ProductDialog;
+export default SuppliersDialog;

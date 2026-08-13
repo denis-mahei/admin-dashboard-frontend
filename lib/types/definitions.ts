@@ -27,6 +27,9 @@ export interface Order {
   order_date: Date;
 }
 
+export const STATUS = ["Active", "Deactive"] as const;
+export type Status = (typeof STATUS)[number];
+
 export interface Supplier {
   id: number;
   name: string;
@@ -34,7 +37,16 @@ export interface Supplier {
   company: string;
   date: Date;
   amount: number;
-  status: "Active" | "Deactive";
+  status: Status;
+}
+
+export interface SupplierRequest {
+  name: string;
+  address: string;
+  company: string;
+  date: Date;
+  amount: number;
+  status: Status;
 }
 
 export const Categories = ["Hand", "Medicine", "Leg", "Heart", "Head"] as const;

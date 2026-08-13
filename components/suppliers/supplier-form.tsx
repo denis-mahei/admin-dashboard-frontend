@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import Box from "@mui/material/Box";
+import { Controller, useForm } from "react-hook-form";
 import {
   Button,
   FormControl,
@@ -10,40 +12,34 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
-import Box from "@mui/material/Box";
-import { Categories, Supplier } from "@/lib/types/definitions";
+import { STATUS } from "@/lib/types/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { productSchema, ProductValues } from "@/lib/schemas/productSchema";
+import {
+  SupplierPayload,
+  supplierSchema,
+  SupplierValues,
+} from "@/lib/schemas/supplierSchema";
+import { slotProps } from "@/components/products/product-form";
+import { DatePicker } from "@mui/x-date-pickers";
 
-type ProductFormProps = {
-  onClose?: () => void;
-  onSubmit: (data: ProductValues) => void;
-  suppliers: Supplier[];
-  defaultValues: ProductValues;
+type SupplierFormProps = {
+  onSubmit: (data: SupplierPayload) => void;
   isEditing?: boolean;
+  onClose?: () => void;
+  defaultValues: SupplierValues;
 };
 
-export const slotProps = {
-  htmlInput: {
-    step: 0.01,
-    min: 0,
-  },
-};
-
-function ProductForm({
-  onSubmit,
+function SupplierForm({
   onClose,
-  suppliers,
-  defaultValues,
+  onSubmit,
   isEditing,
-}: ProductFormProps) {
+  defaultValues,
+}: SupplierFormProps) {
   const { control, handleSubmit } = useForm({
-    resolver: zodResolver(productSchema),
+    resolver: zodResolver(supplierSchema),
     defaultValues,
     mode: "onBlur",
   });
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Box
@@ -61,7 +57,7 @@ function ProductForm({
           render={({ field, fieldState }) => (
             <TextField
               {...field}
-              label="Product Info"
+              label="Supplier Info"
               error={!!fieldState.error}
               helperText={fieldState.error?.message}
               sx={{
@@ -71,18 +67,68 @@ function ProductForm({
           )}
         />
         <Controller
-          name="category"
+          name="address"
+          control={control}
+          render={({ field, fieldState }) => (
+            <TextField
+              {...field}
+              label="Address"
+              error={!!fieldState.error}
+              helperText={fieldState.error?.message}
+            />
+          )}
+        />
+        <Controller
+          name="company"
+          control={control}
+          render={({ field, fieldState }) => (
+            <TextField
+              {...field}
+              label="Company"
+              error={!!fieldState.error}
+              helperText={fieldState.error?.message}
+            />
+          )}
+        />
+        <Controller
+          name="date"
+          control={control}
+          render={({ field }) => (
+            <DatePicker
+              label="Delivery date"
+              format="MMMM D, YYYY"
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
+        />
+        <Controller
+          name="amount"
+          control={control}
+          render={({ field, fieldState }) => (
+            <TextField
+              {...field}
+              label="Amount"
+              type="number"
+              slotProps={slotProps}
+              error={!!fieldState.error}
+              helperText={fieldState.error?.message}
+            />
+          )}
+        />
+        <Controller
+          name="status"
           control={control}
           render={({ field, fieldState }) => (
             <FormControl fullWidth error={!!fieldState.error}>
-              <InputLabel id="select-label">Category</InputLabel>
+              <InputLabel id="select-label">Status</InputLabel>
               <Select
                 error={!!fieldState.error}
                 labelId="select-label"
                 id="select"
                 value={field.value}
                 onChange={field.onChange}
-                label="Category"
+                label="Status"
                 sx={{ borderRadius: "60px" }}
                 MenuProps={{
                   slotProps: {
@@ -99,9 +145,9 @@ function ProductForm({
                   },
                 }}
               >
-                {Categories.map((category) => (
-                  <MenuItem key={category} value={category}>
-                    {category}
+                {STATUS.map((status) => (
+                  <MenuItem key={status} value={status}>
+                    {status}
                   </MenuItem>
                 ))}
               </Select>
@@ -109,78 +155,6 @@ function ProductForm({
                 {fieldState.error?.message ?? " "}
               </FormHelperText>
             </FormControl>
-          )}
-        />
-        <Controller
-          name="stock"
-          control={control}
-          render={({ field, fieldState }) => (
-            <TextField
-              {...field}
-              label="Stock"
-              slotProps={{
-                htmlInput: {
-                  step: 1,
-                  min: 0,
-                },
-              }}
-              type="number"
-              error={!!fieldState.error}
-              helperText={fieldState.error?.message}
-            />
-          )}
-        />
-        <Controller
-          name="supplierId"
-          control={control}
-          render={({ field, fieldState }) => (
-            <FormControl fullWidth error={!!fieldState.error}>
-              <InputLabel id="select-company-label">Suppliers</InputLabel>
-              <Select
-                labelId="select-company-label"
-                id="select-company"
-                value={field.value}
-                onChange={field.onChange}
-                label="Suppliers"
-                sx={{ borderRadius: "60px" }}
-                error={!!fieldState.error}
-                MenuProps={{
-                  slotProps: {
-                    paper: {
-                      sx: {
-                        backgroundColor: "primary.main",
-                        color: "#fff",
-                        mt: 1,
-                        borderRadius: "15px",
-                        maxHeight: 140,
-                        overflow: "auto",
-                      },
-                    },
-                  },
-                }}
-              >
-                {suppliers.map((supplier) => (
-                  <MenuItem key={supplier.id} value={supplier.id}>
-                    {supplier.company}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>{fieldState.error?.message}</FormHelperText>
-            </FormControl>
-          )}
-        />
-        <Controller
-          name="price"
-          control={control}
-          render={({ field, fieldState }) => (
-            <TextField
-              {...field}
-              type="number"
-              slotProps={slotProps}
-              label="Price"
-              error={!!fieldState.error}
-              helperText={fieldState.error?.message}
-            />
           )}
         />
       </Box>
@@ -222,4 +196,4 @@ function ProductForm({
     </form>
   );
 }
-export default ProductForm;
+export default SupplierForm;

@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { cookies } from "next/headers";
-import { ProductRequest } from "@/lib/types/definitions";
+import { ProductRequest, SupplierRequest } from "@/lib/types/definitions";
 import { handleApiError } from "@/lib/utils/errorHandler";
 
 const api = axios.create({
@@ -56,6 +56,42 @@ export const addNewProduct = async (payload: ProductRequest) => {
     return data;
   } catch (error) {
     throw new Error("Failed to add product");
+  }
+};
+
+export const addNewSupplier = async (payload: SupplierRequest) => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
+  if (!token) {
+    throw new Error("Unauthorized");
+  }
+  try {
+    const { data } = await api.post(`/suppliers`, payload, {
+      headers: {
+        Cookie: `access_token=${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error("Failed to add supplier");
+  }
+};
+
+export const updateSupplier = async (id: number, payload: SupplierRequest) => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
+  if (!token) {
+    throw new Error("Unauthorized");
+  }
+  try {
+    const { data } = await api.patch(`/suppliers/${id}`, payload, {
+      headers: {
+        Cookie: `access_token=${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error("Failed to update supplier");
   }
 };
 
