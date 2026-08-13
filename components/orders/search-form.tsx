@@ -49,7 +49,6 @@ function SearchForm({ label }: SearchFormProps) {
           helperText={fieldState.error?.message}
           sx={{
             maxWidth: "224px",
-            boxShadow: "0px -1px 5px 0px rgba(71, 71, 71, 0.05)",
           }}
         />
       )}

@@ -103,6 +103,7 @@ const theme = createTheme({
           width: "100%",
           "& .MuiOutlinedInput-root": {
             borderRadius: 20,
+            boxShadow: "0px -1px 5px 0px rgba(71, 71, 71, 0.05)",
           },
         },
       },
