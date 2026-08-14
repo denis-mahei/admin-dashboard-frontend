@@ -8,6 +8,7 @@ import TableBody from "@mui/material/TableBody";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { normalizedDate } from "@/lib/utils/normalizedDate";
 
 type OrdersTableProps = {
   orders: Order[];
@@ -88,13 +89,7 @@ function OrdersTable({ orders }: OrdersTableProps) {
             </TableCell>
             <TableCell>{row.address.split(",")[0]}</TableCell>
             <TableCell>{row.products}</TableCell>
-            <TableCell>
-              {new Date(row.order_date).toLocaleDateString("en-US", {
-                day: "2-digit",
-                month: "long",
-                year: "numeric",
-              })}
-            </TableCell>
+            <TableCell>{normalizedDate(row.order_date)}</TableCell>
             <TableCell>{row.price}</TableCell>
             <TableCell>
               <Typography

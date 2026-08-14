@@ -13,6 +13,7 @@ import { Supplier } from "@/lib/types/definitions";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import SuppliersDialog from "@/components/suppliers/suppliers-dialog";
+import { normalizedDate } from "@/lib/utils/normalizedDate";
 
 type SuppliersTableProps = {
   suppliers: Supplier[];
@@ -74,13 +75,7 @@ function SuppliersTable({ suppliers }: SuppliersTableProps) {
               <TableCell>{supplier.name}</TableCell>
               <TableCell>{supplier.address}</TableCell>
               <TableCell>{supplier.company}</TableCell>
-              <TableCell>
-                {new Date(supplier.date).toLocaleDateString("en-US", {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                })}
-              </TableCell>
+              <TableCell>{normalizedDate(supplier.date)}</TableCell>
               <TableCell>{supplier.amount}</TableCell>
               <TableCell>
                 <Typography
