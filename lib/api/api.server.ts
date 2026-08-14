@@ -186,7 +186,15 @@ export const getSuppliers = async ({
   }
 };
 
-export const getCustomers = async () => {
+export const getCustomers = async ({
+  name,
+  page = 1,
+  limit = 5,
+}: {
+  name: string;
+  page: number;
+  limit: number;
+}) => {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
   if (!token) {
@@ -196,6 +204,11 @@ export const getCustomers = async () => {
     const { data } = await api.get("/customers", {
       headers: {
         Cookie: `access_token=${token}`,
+      },
+      params: {
+        name,
+        page,
+        limit,
       },
     });
     return data;
