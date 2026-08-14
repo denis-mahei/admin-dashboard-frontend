@@ -70,9 +70,12 @@ function ProductsTable({ suppliers, products }: ProductsTableProps) {
                 borderRight: "1px solid",
                 borderColor: "divider",
               },
+              "& .MuiTableCell-root:first-of-type": {
+                paddingLeft: 0,
+              },
             }}
           >
-            <TableCell sx={{ paddingLeft: 0 }}>Product info</TableCell>
+            <TableCell>Product info</TableCell>
             <TableCell>Category</TableCell>
             <TableCell>Stock</TableCell>
             <TableCell>Suppliers</TableCell>
@@ -93,6 +96,9 @@ function ProductsTable({ suppliers, products }: ProductsTableProps) {
                 "& .MuiTableCell-root": {
                   fontWeight: 500,
                   fontSize: { xs: "12px", sm: "14px", md: "16px" },
+                },
+                "& .MuiTableCell-root:first-of-type": {
+                  paddingLeft: 0,
                 },
               }}
             >

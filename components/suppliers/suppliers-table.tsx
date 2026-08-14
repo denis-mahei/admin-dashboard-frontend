@@ -45,9 +45,12 @@ function SuppliersTable({ suppliers }: SuppliersTableProps) {
                 borderRight: "1px solid",
                 borderColor: "divider",
               },
+              "& .MuiTableCell-root:first-of-type": {
+                paddingLeft: 0,
+              },
             }}
           >
-            <TableCell sx={{ paddingLeft: 0 }}>Supplier info</TableCell>
+            <TableCell>Supplier info</TableCell>
             <TableCell>Address</TableCell>
             <TableCell>Company</TableCell>
             <TableCell>Delivery date</TableCell>
@@ -69,6 +72,9 @@ function SuppliersTable({ suppliers }: SuppliersTableProps) {
                 "& .MuiTableCell-root": {
                   fontWeight: 500,
                   fontSize: { xs: "12px", sm: "14px", md: "16px" },
+                },
+                "& .MuiTableCell-root:first-of-type": {
+                  paddingLeft: 0,
                 },
               }}
             >

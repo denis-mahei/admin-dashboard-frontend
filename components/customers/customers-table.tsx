@@ -6,6 +6,8 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import { normalizedDate } from "@/lib/utils/normalizedDate";
+import Box from "@mui/material/Box";
+import Image from "next/image";
 
 type CustomersTableProps = {
   customers: Customer[];
@@ -50,7 +52,35 @@ function CustomersTable({ customers }: CustomersTableProps) {
               },
             }}
           >
-            <TableCell>{customer.name}</TableCell>
+            <TableCell
+              component="th"
+              scope="row"
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", sm: "row" },
+                alignItems: { xs: "start", sm: "center" },
+                gap: 1,
+                paddingLeft: 0,
+              }}
+            >
+              <Box
+                sx={{
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                  width: "36px",
+                  height: "36px",
+                }}
+              >
+                <Image
+                  src={customer.photo}
+                  alt={customer.name}
+                  width={36}
+                  height={36}
+                />
+              </Box>
+              {customer.name}
+            </TableCell>
+
             <TableCell>{customer.email}</TableCell>
             <TableCell>{customer.address}</TableCell>
             <TableCell>{customer.phone}</TableCell>
