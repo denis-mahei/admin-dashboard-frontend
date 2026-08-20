@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 
 export async function proxy(req: NextRequest) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("access_token")?.value;
+  const token = req.cookies.get("access_token")?.value;
+  console.log("PROXY — token:", token);
+  console.log(
+    "PROXY — cookie names:",
+    req.cookies.getAll().map((c) => c.name),
+  );
   if (!token) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
