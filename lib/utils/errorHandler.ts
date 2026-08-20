@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const handleApiError = (error) => {
+export const handleApiError = (error: unknown) => {
   if (axios.isAxiosError(error)) {
     const status = error.response?.status;
     if (status === 401)
