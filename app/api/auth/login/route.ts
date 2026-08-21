@@ -35,9 +35,11 @@ export async function POST(req: NextRequest) {
   } catch (e) {
     if (axios.isAxiosError(e)) {
       return NextResponse.json(
-        { message: e?.response?.data.message },
-        { status: e?.response?.status },
+        { message: e?.response?.data?.message ?? "Login failed." },
+        { status: e?.response?.status ?? 500 },
       );
     }
+    console.error("Login error:", e);
+    return NextResponse.json({ message: "Internal error" }, { status: 500 });
   }
 }
