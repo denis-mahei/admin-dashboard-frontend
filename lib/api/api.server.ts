@@ -2,10 +2,21 @@
 
 import axios from "axios";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const apiServer = axios.create({
   baseURL: process.env.API_BASE_URL,
 });
+
+const handleApiError = (error: unknown, fallbackMessage: string): never => {
+  if (axios.isAxiosError(error)) {
+    if (error.response?.status === 401) {
+      redirect("/login");
+    }
+    throw new Error(error.response?.data?.message ?? fallbackMessage);
+  }
+  throw new Error(fallbackMessage);
+};
 
 export const getProducts = async ({
   name,
@@ -21,7 +32,7 @@ export const getProducts = async ({
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
   if (!token) {
-    throw new Error("Unauthorized");
+    redirect("/login");
   }
   try {
     const { data } = await apiServer.get("/products", {
@@ -37,7 +48,7 @@ export const getProducts = async ({
     });
     return data;
   } catch (error) {
-    throw new Error("Failed to get products");
+    handleApiError(error, "Failed to get products");
   }
 };
 
@@ -45,7 +56,7 @@ export const getSupplierLookUp = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
   if (!token) {
-    throw new Error("Unauthorized");
+    redirect("/login");
   }
   try {
     const { data } = await apiServer.get("/suppliers/lookup", {
@@ -55,7 +66,7 @@ export const getSupplierLookUp = async () => {
     });
     return data;
   } catch (error) {
-    handleApiError(error);
+    handleApiError(error, "Failed to get supplier lookup");
   }
 };
 
@@ -75,7 +86,7 @@ export const getSuppliers = async ({
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
   if (!token) {
-    throw new Error("Unauthorized");
+    redirect("/login");
   }
   try {
     const { data } = await apiServer.get("/suppliers", {
@@ -92,7 +103,7 @@ export const getSuppliers = async ({
     });
     return data;
   } catch (error) {
-    handleApiError(error);
+    handleApiError(error, "Failed to get suppliers");
   }
 };
 
@@ -108,7 +119,7 @@ export const getCustomers = async ({
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
   if (!token) {
-    throw new Error("Unauthorized");
+    redirect("/login");
   }
   try {
     const { data } = await apiServer.get("/customers", {
@@ -123,7 +134,7 @@ export const getCustomers = async ({
     });
     return data;
   } catch (error) {
-    throw new Error("Failed to fetch customers");
+    handleApiError(error, "Failed to fetch customers");
   }
 };
 
@@ -131,7 +142,7 @@ export const getDashboardData = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
   if (!token) {
-    throw new Error("Unauthorized");
+    redirect("/login");
   }
   try {
     const { data } = await apiServer.get("/dashboard", {
@@ -141,7 +152,7 @@ export const getDashboardData = async () => {
     });
     return data;
   } catch (error) {
-    throw new Error("Failed to fetch dashboard data");
+    handleApiError(error, "Failed to fetch dashboard data");
   }
 };
 
@@ -161,7 +172,7 @@ export const getOrders = async ({
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
   if (!token) {
-    throw new Error("Unauthorized");
+    redirect("/login");
   }
   try {
     const { data } = await apiServer.get("/orders", {
@@ -178,6 +189,6 @@ export const getOrders = async ({
     });
     return data;
   } catch (error) {
-    throw new Error("Failed to fetch orders");
+    handleApiError(error, "Failed to fetch orders");
   }
 };
