@@ -6,7 +6,7 @@ export async function GET() {
   try {
     await apiServer.get("/auth/logout");
   } catch (e) {
-    console.log("NestJS logout failed:", e);
+    console.error("NestJS logout failed:", e);
   }
 
   const cookieStore = await cookies();

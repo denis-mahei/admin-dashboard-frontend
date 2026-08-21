@@ -27,7 +27,6 @@ export async function POST(req: NextRequest) {
         if (parsed.access_token) {
           cookieStore.set("access_token", parsed.access_token, options);
         }
-        console.log("My options:", options);
       }
       return NextResponse.json(res.data);
     }
@@ -39,7 +38,6 @@ export async function POST(req: NextRequest) {
         { status: e?.response?.status ?? 500 },
       );
     }
-    console.error("Login error:", e);
     return NextResponse.json({ message: "Internal error" }, { status: 500 });
   }
 }
