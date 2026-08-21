@@ -5,7 +5,7 @@ import axios from "axios";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: Promise<{ id: number }> },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
   const body = await req.json();
