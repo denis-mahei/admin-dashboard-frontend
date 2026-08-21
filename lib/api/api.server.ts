@@ -2,11 +2,10 @@
 
 import axios from "axios";
 import { cookies } from "next/headers";
-import { ProductRequest, SupplierRequest } from "@/lib/types/definitions";
 import { handleApiError } from "@/lib/utils/errorHandler";
 
-const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+export const apiServer = axios.create({
+  baseURL: process.env.API_BASE_URL,
 });
 
 export const getProducts = async ({
@@ -26,7 +25,7 @@ export const getProducts = async ({
     throw new Error("Unauthorized");
   }
   try {
-    const { data } = await api.get("/products", {
+    const { data } = await apiServer.get("/products", {
       headers: {
         Cookie: `access_token=${token}`,
       },
@@ -43,94 +42,6 @@ export const getProducts = async ({
   }
 };
 
-export const addNewProduct = async (payload: ProductRequest) => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("access_token")?.value;
-  if (!token) {
-    throw new Error("Unauthorized");
-  }
-  try {
-    const { data } = await api.post(`/products`, payload, {
-      headers: { Cookie: `access_token=${token}` },
-    });
-    return data;
-  } catch (error) {
-    throw new Error("Failed to add product");
-  }
-};
-
-export const addNewSupplier = async (payload: SupplierRequest) => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("access_token")?.value;
-  if (!token) {
-    throw new Error("Unauthorized");
-  }
-  try {
-    const { data } = await api.post(`/suppliers`, payload, {
-      headers: {
-        Cookie: `access_token=${token}`,
-      },
-    });
-    return data;
-  } catch (error) {
-    throw new Error("Failed to add supplier");
-  }
-};
-
-export const updateSupplier = async (id: number, payload: SupplierRequest) => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("access_token")?.value;
-  if (!token) {
-    throw new Error("Unauthorized");
-  }
-  try {
-    const { data } = await api.patch(`/suppliers/${id}`, payload, {
-      headers: {
-        Cookie: `access_token=${token}`,
-      },
-    });
-    return data;
-  } catch (error) {
-    throw new Error("Failed to update supplier");
-  }
-};
-
-export const updateProduct = async (id: number, payload: ProductRequest) => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("access_token")?.value;
-  if (!token) {
-    throw new Error("Unauthorized");
-  }
-
-  try {
-    const { data } = await api.patch(`/products/${id}`, payload, {
-      headers: {
-        Cookie: `access_token=${token}`,
-      },
-    });
-    return data;
-  } catch (error) {
-    throw new Error("Failed to update product");
-  }
-};
-
-export const deleteProduct = async (id: number) => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("access_token")?.value;
-  if (!token) {
-    throw new Error("Unauthorized");
-  }
-  try {
-    await api.delete(`/products/${id}`, {
-      headers: {
-        Cookie: `access_token=${token}`,
-      },
-    });
-  } catch (error) {
-    throw new Error("Failed to delete product");
-  }
-};
-
 export const getSupplierLookUp = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
@@ -138,7 +49,7 @@ export const getSupplierLookUp = async () => {
     throw new Error("Unauthorized");
   }
   try {
-    const { data } = await api.get("/suppliers/lookup", {
+    const { data } = await apiServer.get("/suppliers/lookup", {
       headers: {
         Cookie: `access_token=${token}`,
       },
@@ -168,7 +79,7 @@ export const getSuppliers = async ({
     throw new Error("Unauthorized");
   }
   try {
-    const { data } = await api.get("/suppliers", {
+    const { data } = await apiServer.get("/suppliers", {
       headers: {
         Cookie: `access_token=${token}`,
       },
@@ -201,7 +112,7 @@ export const getCustomers = async ({
     throw new Error("Unauthorized");
   }
   try {
-    const { data } = await api.get("/customers", {
+    const { data } = await apiServer.get("/customers", {
       headers: {
         Cookie: `access_token=${token}`,
       },
@@ -224,7 +135,7 @@ export const getDashboardData = async () => {
     throw new Error("Unauthorized");
   }
   try {
-    const { data } = await api.get("/dashboard", {
+    const { data } = await apiServer.get("/dashboard", {
       headers: {
         Cookie: `access_token=${token}`,
       },
@@ -254,7 +165,7 @@ export const getOrders = async ({
     throw new Error("Unauthorized");
   }
   try {
-    const { data } = await api.get("/orders", {
+    const { data } = await apiServer.get("/orders", {
       headers: {
         Cookie: `access_token=${token}`,
       },

@@ -6,7 +6,7 @@ import {
   Supplier,
 } from "@/lib/types/definitions";
 import { useMutation } from "@tanstack/react-query";
-import { addNewProduct, updateProduct } from "@/lib/api/api.server";
+import { addNewProduct, updateProduct } from "@/lib/api/api.client";
 import { enqueueSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import Dialog from "@mui/material/Dialog";

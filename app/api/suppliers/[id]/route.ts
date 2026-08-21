@@ -1,28 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import axios from "axios";
 import { apiServer } from "@/lib/api/api.server";
+import axios from "axios";
 
-export async function POST(req: NextRequest) {
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: number }> },
+) {
+  const { id } = await params;
   const body = await req.json();
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
-
   if (!token) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
   try {
-    const { data } = await apiServer.post("/suppliers", body, {
+    const { data } = await apiServer.patch(`/suppliers/${id}`, body, {
       headers: {
         Cookie: `access_token=${token}`,
       },
     });
     return NextResponse.json(data);
-  } catch (e) {
-    if (axios.isAxiosError(e)) {
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
       return NextResponse.json(
-        { message: e?.response?.data.message },
-        { status: e?.response?.status },
+        { message: error?.response?.data.message },
+        { status: error?.response?.status },
       );
     }
   }

@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function proxy(req: NextRequest) {
-  const token = req.cookies.get("access_token")?.value;
-  console.log("PROXY — token:", token);
-  console.log(
-    "PROXY — cookie names:",
-    req.cookies.getAll().map((c) => c.name),
-  );
-  if (!token) {
+  const pathname = req.nextUrl.pathname;
+  const access_token = req.cookies.has("access_token");
+
+  if (!access_token) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 

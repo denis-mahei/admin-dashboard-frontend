@@ -9,7 +9,7 @@ import { STATUS, Supplier } from "@/lib/types/definitions";
 import SupplierForm from "@/components/suppliers/supplier-form";
 import { useMutation } from "@tanstack/react-query";
 import { SupplierPayload } from "@/lib/schemas/supplierSchema";
-import { addNewSupplier, updateSupplier } from "@/lib/api/api.server";
+import { addNewSupplier, updateSupplier } from "@/lib/api/api.client";
 import { enqueueSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";

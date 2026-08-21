@@ -12,7 +12,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { alpha } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import { deleteProduct } from "@/lib/api/api.server";
+import { deleteProduct } from "@/lib/api/api.client";
 import IconButton from "@mui/material/IconButton";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
