@@ -2,7 +2,6 @@
 
 import axios from "axios";
 import { cookies } from "next/headers";
-import { handleApiError } from "@/lib/utils/errorHandler";
 
 export const apiServer = axios.create({
   baseURL: process.env.API_BASE_URL,

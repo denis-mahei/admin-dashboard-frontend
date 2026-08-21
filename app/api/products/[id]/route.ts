@@ -24,10 +24,14 @@ export async function PATCH(
   } catch (e) {
     if (axios.isAxiosError(e)) {
       return NextResponse.json(
-        { message: e?.response?.data.message },
+        { message: e?.response?.data?.message },
         { status: e?.response?.status },
       );
     }
+    return NextResponse.json(
+      { message: "Something went wrong!" },
+      { status: 500 },
+    );
   }
 }
 
@@ -53,9 +57,13 @@ export async function DELETE(
   } catch (e) {
     if (axios.isAxiosError(e)) {
       return NextResponse.json(
-        { message: e?.response?.data.message },
+        { message: e?.response?.data?.message },
         { status: e?.response?.status },
       );
     }
+    return NextResponse.json(
+      { message: "Something went wrong!" },
+      { status: 500 },
+    );
   }
 }

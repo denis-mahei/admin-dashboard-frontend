@@ -24,9 +24,13 @@ export async function PATCH(
   } catch (error) {
     if (axios.isAxiosError(error)) {
       return NextResponse.json(
-        { message: error?.response?.data.message },
+        { message: error?.response?.data?.message },
         { status: error?.response?.status },
       );
     }
+    return NextResponse.json(
+      { message: "Something went wrong!" },
+      { status: 500 },
+    );
   }
 }
